@@ -12,6 +12,13 @@ class Organism {
 	int strength;
 	int initiative;
 	Vec2 position;
+
+public:
+	Organism() = delete;
+
+	virtual void action() = 0;
+
+	virtual void draw() = 0;
 };
 
 
