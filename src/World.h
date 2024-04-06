@@ -11,18 +11,29 @@
 
 
 class World {
+	int sizeI_;
+
 	std::vector<std::unique_ptr<Organism>> organisms_;
+
+	std::vector<std::vector<Organism*>> worldPlane_;
 
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& a, const std::unique_ptr<Organism>& b);
 
 public:
-	void addOrganism(Organism* newOrganism);
+	explicit World(int size) : sizeI_(size) {
+		worldPlane_.resize(size);
+		for (auto& inner_vec : worldPlane_) {
+			inner_vec.resize(size);
+		}
+	}
+
+	void addOrganism(Organism* newOrganism, int x, int y);
 
 	void removeOrganism();
 
 	void updateWorld();
 
-	void drawWorld();
+	void drawWorld() const;
 };
 
 

@@ -11,6 +11,8 @@ class Human final : public Organism {
 public:
 	Human() {
 		ageI_ = 4;
+		symbolC_ = 'H';
+
 		std::cout << "Constructor Human" << std::endl;
 	}
 
