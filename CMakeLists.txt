@@ -18,6 +18,10 @@ add_executable(GameOfLifeOOP main.cpp
         src/World.cpp
         src/World.h
         src/Utility/Vec2.h
-        src/Utility/Vec2.cpp)
+        src/Utility/Vec2.cpp
+        src/Organism/Plants/Grass.cpp
+        src/Organism/Plants/Grass.h
+        src/Organism/Plant.cpp
+        src/Organism/Plant.h)
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)

@@ -14,8 +14,6 @@ public:
 		std::cout << "Constructor Human" << std::endl;
 	}
 
-	void draw() override {}
-
 	void action() override {};
 };
 
