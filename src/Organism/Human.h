@@ -4,11 +4,20 @@
 
 #ifndef GAMEOFLIFEOOP_HUMAN_H
 #define GAMEOFLIFEOOP_HUMAN_H
+#include "Organism.h"
 
 
-class Human {
+class Human final : public Organism {
+public:
+	Human() {
+		ageI_ = 4;
+		std::cout << "Constructor Human" << std::endl;
+	}
 
+	void draw() override {}
+
+	void action() override {};
 };
 
 
-#endif //GAMEOFLIFEOOP_HUMAN_H
+#endif // GAMEOFLIFEOOP_HUMAN_H
