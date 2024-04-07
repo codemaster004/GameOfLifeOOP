@@ -34,6 +34,21 @@ void World::addOrganism(Organism* newOrganism, int atX, int atY) {
 	addOrganism(newOrganism);
 }
 
+void World::updateWorld() {
+	for (auto organism_p = organisms_.begin(); organism_p != organisms_.end(); ) {
+		if (!(*organism_p)->isAlive()) {
+			// at this stage raw pointer in worldPlane sould already be removed
+			// todo: check & throw
+
+			// Remove the unique_ptr from the vector, and keep the loop in place
+			organism_p = organisms_.erase(organism_p);
+		} else {
+			(*organism_p)->action(); // run the action for the organism
+			++organism_p; // move to the next Organism
+		}
+	}
+}
+
 void World::drawWorld() const {
 	for (auto& worldRow: worldPlane_) {
 		for (auto& org_p: worldRow) {

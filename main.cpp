@@ -10,6 +10,8 @@ int main() {
 	world.addOrganism(new Human(), 0, 0);
 	world.addOrganism(new Grass(), 1, 2);
 
+	world.updateWorld();
+
 	world.drawWorld();
 
 	return 0;

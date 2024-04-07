@@ -18,13 +18,15 @@ protected:
 	int initiativeI_;
 
 	int ageI_;
+	bool aliveBCond_;
 
 	char symbolC_;
 
 	Vec2 positionVec2_;
 
 public:
-	Organism() : strengthI_(0), initiativeI_(0), ageI_(0), symbolC_(ORGANISM_SYMBOL), positionVec2_() {
+	Organism() :
+		strengthI_(0), initiativeI_(0), ageI_(0), aliveBCond_(true), symbolC_(ORGANISM_SYMBOL), positionVec2_() {
 		std::cout << "Constructor Organism" << std::endl;
 	}
 
@@ -42,6 +44,9 @@ public:
 
 	[[nodiscard]] int getAge() const { return ageI_; }
 	void setAge(int age) { this->ageI_ = age; }
+
+	[[nodiscard]] bool isAlive() const { return aliveBCond_; }
+	void unalive() { this->aliveBCond_ = false; }
 
 	[[nodiscard]] int getX() const { return static_cast<int>(positionVec2_.x); }
 	[[nodiscard]] int getY() const { return static_cast<int>(positionVec2_.y); }
