@@ -43,6 +43,10 @@ public:
 	[[nodiscard]] int getAge() const { return ageI_; }
 	void setAge(int age) { this->ageI_ = age; }
 
+	[[nodiscard]] int getX() const { return static_cast<int>(positionVec2_.x); }
+	[[nodiscard]] int getY() const { return static_cast<int>(positionVec2_.y); }
+	void setPosition(int x, int y) { this->positionVec2_ = Vec2{static_cast<float>(x), static_cast<float>(y)}; }
+
 	/* Destruction */
 
 	virtual ~Organism() { std::cout << "Destructor Organism" << std::endl; }

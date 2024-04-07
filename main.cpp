@@ -8,7 +8,7 @@ int main() {
 	auto world = World(3);
 
 	world.addOrganism(new Human(), 0, 0);
-	world.addOrganism(new Grass(), 1, 1);
+	world.addOrganism(new Grass(), 1, 2);
 
 	world.drawWorld();
 

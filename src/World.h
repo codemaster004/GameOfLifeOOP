@@ -27,7 +27,8 @@ public:
 		}
 	}
 
-	void addOrganism(Organism* newOrganism, int x, int y);
+	void addOrganism(Organism* newOrganism);
+	void addOrganism(Organism* newOrganism, int atX, int atY);
 
 	void removeOrganism();
 

@@ -14,16 +14,24 @@ bool World::compareGraterInitiative(const std::unique_ptr<Organism>& a, const st
 		   (a->getInitiative() == b->getInitiative() && a->getAge() > b->getAge());
 }
 
-void World::addOrganism(Organism* newOrganism, int x, int y) {
+void World::addOrganism(Organism* newOrganism) {
 	// Wrap the raw pointer in a std::unique_ptr before insertion
 	std::unique_ptr<Organism> organismPtr(newOrganism);
 	// Add the raw pointer to the world plane
-	worldPlane_[y][x] = organismPtr.get();
+	worldPlane_[newOrganism->getY()][newOrganism->getX()] = organismPtr.get();
 
 	// Use std::lower_bound with the comparison function to find correct space in the vector
 	auto iter = std::lower_bound(organisms_.begin(), organisms_.end(), organismPtr, compareGraterInitiative);
 	// Insert the unique_ptr into the vector, transferring ownership
 	organisms_.insert(iter, std::move(organismPtr));
+}
+
+void World::addOrganism(Organism* newOrganism, int atX, int atY) {
+	if (atX >= sizeI_ || atY >= sizeI_) {
+		// todo: throw
+	}
+	newOrganism->setPosition(atX, atY);
+	addOrganism(newOrganism);
 }
 
 void World::drawWorld() const {
