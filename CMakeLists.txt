@@ -22,6 +22,14 @@ add_executable(GameOfLifeOOP main.cpp
         src/Organism/Plants/Grass.cpp
         src/Organism/Plants/Grass.h
         src/Organism/Plant.cpp
-        src/Organism/Plant.h)
+        src/Organism/Plant.h
+        src/Organism/Plants/SowThistle.cpp
+        src/Organism/Plants/SowThistle.h
+        src/Organism/Plants/Guarana.cpp
+        src/Organism/Plants/Guarana.h
+        src/Organism/Plants/Belladonna.cpp
+        src/Organism/Plants/Belladonna.h
+        src/Organism/Plants/SosnowskysHogweed.cpp
+        src/Organism/Plants/SosnowskysHogweed.h)
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)

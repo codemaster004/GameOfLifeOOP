@@ -5,7 +5,7 @@
 
 
 int main() {
-	auto world = World(3);
+	auto world = World(10);
 
 	world.addOrganism(new Human(), 0, 0);
 	world.addOrganism(new Grass(), 1, 2);

@@ -9,11 +9,7 @@
 
 class Grass : public Plant {
 public:
-	Grass() {
-		symbolC_ = 'G';
-	}
-
-	void action() override {}
+	Grass() { symbolC_ = 'g'; }
 };
 
 
