@@ -15,6 +15,9 @@ bool World::compareGraterInitiative(const std::unique_ptr<Organism>& a, const st
 }
 
 void World::addOrganism(Organism* newOrganism) {
+	// Set Enviroment as this Word
+	newOrganism->setEnviroment(this);
+
 	// Wrap the raw pointer in a std::unique_ptr before insertion
 	std::unique_ptr<Organism> organismPtr(newOrganism);
 	// Add the raw pointer to the world plane

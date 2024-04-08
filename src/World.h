@@ -22,7 +22,7 @@ class World {
 public:
 	explicit World(int size) : sizeI_(size) {
 		worldPlane_.resize(size);
-		for (auto& inner_vec : worldPlane_) {
+		for (auto& inner_vec: worldPlane_) {
 			inner_vec.resize(size);
 		}
 	}
@@ -35,7 +35,11 @@ public:
 	void updateWorld();
 
 	void drawWorld() const;
+
+	/* Getters & Setters */
+
+	[[nodiscard]] int getSize() const { return this->sizeI_; }
 };
 
 
-#endif //GAMEOFLIFEOOP_WORLD_H
+#endif // GAMEOFLIFEOOP_WORLD_H

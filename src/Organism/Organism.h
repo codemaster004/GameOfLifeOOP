@@ -11,6 +11,9 @@
 
 #define ORGANISM_SYMBOL 'O'
 
+// predefinition for pointer to world Organism is placed in
+class World;
+
 
 class Organism {
 protected:
@@ -24,9 +27,12 @@ protected:
 
 	Vec2 positionVec2_;
 
+	World* enviromentWorld_p;
+
 public:
 	Organism() :
-		strengthI_(0), initiativeI_(0), ageI_(0), aliveBCond_(true), symbolC_(ORGANISM_SYMBOL), positionVec2_() {
+		strengthI_(0), initiativeI_(0), ageI_(0), aliveBCond_(true), symbolC_(ORGANISM_SYMBOL), positionVec2_(),
+		enviromentWorld_p(nullptr) {
 		std::cout << "Constructor Organism" << std::endl;
 	}
 
@@ -51,6 +57,8 @@ public:
 	[[nodiscard]] int getX() const { return static_cast<int>(positionVec2_.x); }
 	[[nodiscard]] int getY() const { return static_cast<int>(positionVec2_.y); }
 	void setPosition(int x, int y) { this->positionVec2_ = Vec2{static_cast<float>(x), static_cast<float>(y)}; }
+
+	void setEnviroment(World* enviroment) { this->enviromentWorld_p = enviroment; }
 
 	/* Destruction */
 

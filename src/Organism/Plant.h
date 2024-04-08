@@ -9,6 +9,10 @@
 
 class Plant :public Organism{
 public:
+	Plant() {
+		this->symbolC_ = 'p';
+	}
+
 	void action() override {}
 };
 
