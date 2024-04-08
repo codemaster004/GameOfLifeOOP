@@ -8,7 +8,7 @@
 
 
 class SosnowskysHogweed : public Plant {
-	SosnowskysHogweed() { this->symbolC_ = 'h'; }
+	SosnowskysHogweed() { this->t_symbolC = 'h'; }
 };
 
 

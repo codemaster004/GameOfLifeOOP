@@ -18,10 +18,10 @@ class Animal : public Organism {
 public:
 	Animal() {
 		movementSpeedI_ = 1;
-		this->symbolC_ = 'A';
+		this->t_symbolC = 'A';
 	}
 
-	void action() override;
+	Vec2 step() override;
 };
 
 

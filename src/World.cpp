@@ -9,9 +9,9 @@
 #include "World.h"
 
 
-bool World::compareGraterInitiative(const std::unique_ptr<Organism>& a, const std::unique_ptr<Organism>& b) {
-	return a->getInitiative() > b->getInitiative() ||
-		   (a->getInitiative() == b->getInitiative() && a->getAge() > b->getAge());
+bool World::compareGraterInitiative(const OrganismInfo& iterE, const std::unique_ptr<Organism>& newE) {
+	return iterE.organism_p->getInitiative() > newE->getInitiative() ||
+		   (iterE.organism_p->getInitiative() == newE->getInitiative() && iterE.organism_p->getAge() > newE->getAge());
 }
 
 void World::addOrganism(Organism* newOrganism) {
@@ -21,16 +21,16 @@ void World::addOrganism(Organism* newOrganism) {
 	// Wrap the raw pointer in a std::unique_ptr before insertion
 	std::unique_ptr<Organism> organismPtr(newOrganism);
 	// Add the raw pointer to the world plane
-	worldPlane_[newOrganism->getY()][newOrganism->getX()] = organismPtr.get();
+	t_worldPlane[newOrganism->getY()][newOrganism->getX()] = organismPtr.get();
 
 	// Use std::lower_bound with the comparison function to find correct space in the vector
-	auto iter = std::lower_bound(organisms_.begin(), organisms_.end(), organismPtr, compareGraterInitiative);
+	auto iter = std::lower_bound(t_organisms.begin(), t_organisms.end(), organismPtr, compareGraterInitiative);
 	// Insert the unique_ptr into the vector, transferring ownership
-	organisms_.insert(iter, std::move(organismPtr));
+	t_organisms.insert(iter, {std::move(organismPtr), {0, 0}});
 }
 
 void World::addOrganism(Organism* newOrganism, int atX, int atY) {
-	if (atX >= sizeI_ || atY >= sizeI_) {
+	if (atX >= t_sizeI || atY >= t_sizeI) {
 		// todo: throw
 	}
 	newOrganism->setPosition(atX, atY);
@@ -38,22 +38,22 @@ void World::addOrganism(Organism* newOrganism, int atX, int atY) {
 }
 
 void World::updateWorld() {
-	for (auto organism_p = organisms_.begin(); organism_p != organisms_.end(); ) {
-		if (!(*organism_p)->isAlive()) {
+	for (auto organism_p = t_organisms.begin(); organism_p != t_organisms.end();) {
+		if (!organism_p->organism_p->isAlive()) {
 			// at this stage raw pointer in worldPlane sould already be removed
 			// todo: check & throw
 
-			// Remove the unique_ptr from the vector, and keep the loop in place
-			organism_p = organisms_.erase(organism_p);
+			// Remove the Organism from the vector, and keep the loop in place
+			organism_p = t_organisms.erase(organism_p);
 		} else {
-			(*organism_p)->action(); // run the action for the organism
+			organism_p->organism_p->step(); // run the action for the organism
 			++organism_p; // move to the next Organism
 		}
 	}
 }
 
 void World::drawWorld() const {
-	for (auto& worldRow: worldPlane_) {
+	for (auto& worldRow: t_worldPlane) {
 		for (auto& org_p: worldRow) {
 			std::cout << " "; // prettying the output
 
@@ -69,3 +69,5 @@ void World::drawWorld() const {
 		std::cout << std::endl; // prettying the output
 	}
 }
+
+bool World::isOccupied(int x, int y) const { return t_worldPlane[y][x] != nullptr; }

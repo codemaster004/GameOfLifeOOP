@@ -17,48 +17,48 @@ class World;
 
 class Organism {
 protected:
-	int strengthI_;
-	int initiativeI_;
+	int t_strengthI;
+	int t_initiativeI;
 
-	int ageI_;
-	bool aliveBCond_;
+	int t_ageI;
+	bool t_aliveBCond;
 
-	char symbolC_;
+	char t_symbolC;
 
-	Vec2 positionVec2_;
+	Vec2 t_positionVec2;
 
-	World* enviromentWorld_p;
+	World* t_enviromentWorld_p;
 
 public:
 	Organism() :
-		strengthI_(0), initiativeI_(0), ageI_(0), aliveBCond_(true), symbolC_(ORGANISM_SYMBOL), positionVec2_(),
-		enviromentWorld_p(nullptr) {
+		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_symbolC(ORGANISM_SYMBOL), t_positionVec2(),
+		t_enviromentWorld_p(nullptr) {
 		std::cout << "Constructor Organism" << std::endl;
 	}
 
-	virtual void action() = 0;
+	virtual Vec2 step() = 0;
 
-	virtual void draw() { std::cout << symbolC_; }
+	virtual void draw() { std::cout << t_symbolC; }
 
 	/* Getters & Setters */
 
-	[[nodiscard]] int getStrength() const { return strengthI_; }
-	void setStrength(int strength) { this->strengthI_ = strength; }
+	[[nodiscard]] int getStrength() const { return t_strengthI; }
+	void setStrength(int strength) { this->t_strengthI = strength; }
 
-	[[nodiscard]] int getInitiative() const { return initiativeI_; }
-	void setInitiative(int initiative) { this->initiativeI_ = initiative; }
+	[[nodiscard]] int getInitiative() const { return t_initiativeI; }
+	void setInitiative(int initiative) { this->t_initiativeI = initiative; }
 
-	[[nodiscard]] int getAge() const { return ageI_; }
-	void setAge(int age) { this->ageI_ = age; }
+	[[nodiscard]] int getAge() const { return t_ageI; }
+	void setAge(int age) { this->t_ageI = age; }
 
-	[[nodiscard]] bool isAlive() const { return aliveBCond_; }
-	void unalive() { this->aliveBCond_ = false; }
+	[[nodiscard]] bool isAlive() const { return t_aliveBCond; }
+	void unalive() { this->t_aliveBCond = false; }
 
-	[[nodiscard]] int getX() const { return static_cast<int>(positionVec2_.x); }
-	[[nodiscard]] int getY() const { return static_cast<int>(positionVec2_.y); }
-	void setPosition(int x, int y) { this->positionVec2_ = Vec2{static_cast<float>(x), static_cast<float>(y)}; }
+	[[nodiscard]] int getX() const { return static_cast<int>(t_positionVec2.x); }
+	[[nodiscard]] int getY() const { return static_cast<int>(t_positionVec2.y); }
+	void setPosition(int x, int y) { this->t_positionVec2 = Vec2{static_cast<float>(x), static_cast<float>(y)}; }
 
-	void setEnviroment(World* enviroment) { this->enviromentWorld_p = enviroment; }
+	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 
 	/* Destruction */
 

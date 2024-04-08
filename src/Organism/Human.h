@@ -10,13 +10,13 @@
 class Human final : public Organism {
 public:
 	Human() {
-		ageI_ = 4;
-		symbolC_ = 'H';
+		t_ageI = 4;
+		t_symbolC = 'H';
 
 		std::cout << "Constructor Human" << std::endl;
 	}
 
-	void action() override {};
+	Vec2 step() override {};
 };
 
 

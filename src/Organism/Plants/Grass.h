@@ -9,7 +9,7 @@
 
 class Grass : public Plant {
 public:
-	Grass() { symbolC_ = 'g'; }
+	Grass() { t_symbolC = 'g'; }
 };
 
 

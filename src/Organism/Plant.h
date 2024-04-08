@@ -9,11 +9,9 @@
 
 class Plant :public Organism{
 public:
-	Plant() {
-		this->symbolC_ = 'p';
-	}
+	Plant() { this->t_symbolC = 'p'; }
 
-	void action() override {}
+	Vec2 step() override {}
 };
 
 

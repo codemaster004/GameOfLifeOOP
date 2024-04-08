@@ -8,7 +8,7 @@
 
 
 class SowThistle : public Plant {
-	SowThistle() { this->symbolC_ = 's'; }
+	SowThistle() { this->t_symbolC = 's'; }
 };
 
 

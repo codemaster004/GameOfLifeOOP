@@ -8,7 +8,7 @@
 
 
 class Guarana : public Plant {
-	Guarana() { this->symbolC_ = 'u'; }
+	Guarana() { this->t_symbolC = 'u'; }
 };
 
 

@@ -11,34 +11,39 @@
 
 
 class World {
-	int sizeI_;
+	int t_sizeI;
 
-	std::vector<std::unique_ptr<Organism>> organisms_;
+	struct OrganismInfo {
+		std::unique_ptr<Organism> organism_p;
+		Vec2 moveVec2;
+	};
 
-	std::vector<std::vector<Organism*>> worldPlane_;
+	std::vector<OrganismInfo> t_organisms;
 
-	static bool compareGraterInitiative(const std::unique_ptr<Organism>& a, const std::unique_ptr<Organism>& b);
+	std::vector<std::vector<Organism*>> t_worldPlane;
+
+	static bool compareGraterInitiative(const OrganismInfo& iterE, const std::unique_ptr<Organism>& newE);
 
 public:
-	explicit World(int size) : sizeI_(size) {
-		worldPlane_.resize(size);
-		for (auto& inner_vec: worldPlane_) {
-			inner_vec.resize(size);
+	explicit World(int size) : t_sizeI(size) {
+		t_worldPlane.resize(size);
+		for (auto& innerVec: t_worldPlane) {
+			innerVec.resize(size);
 		}
 	}
 
 	void addOrganism(Organism* newOrganism);
 	void addOrganism(Organism* newOrganism, int atX, int atY);
 
-	void removeOrganism();
-
 	void updateWorld();
 
 	void drawWorld() const;
 
+	[[nodiscard]] bool isOccupied(int x, int y) const;
+
 	/* Getters & Setters */
 
-	[[nodiscard]] int getSize() const { return this->sizeI_; }
+	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };
 
 
