@@ -5,15 +5,17 @@
 #ifndef GAMEOFLIFEOOP_ORGANISM_H
 #define GAMEOFLIFEOOP_ORGANISM_H
 
-#include <iostream>
-
 #include "../Utility/Vec2.h"
+
+#include <iostream>
 
 #define ORGANISM_SYMBOL 'O'
 
-// predefinition for pointer to world Organism is placed in
+
+// Forward definitions for pointers
 class World;
 
+class CollisionContext;
 
 class Organism {
 protected:
@@ -30,6 +32,25 @@ protected:
 	World* t_enviromentWorld_p;
 
 public:
+	enum OrganismType {
+		Human,
+
+		Plant,
+		Animal,
+
+		Antelope,
+		Fox,
+		Sheep,
+		Turtle,
+		Wolf,
+
+		Belladona,
+		Grass,
+		Guarana,
+		SosnowskysHodweed,
+		SowThistle,
+	};
+
 	Organism() :
 		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_symbolC(ORGANISM_SYMBOL), t_positionVec2(),
 		t_enviromentWorld_p(nullptr) {
@@ -60,10 +81,19 @@ public:
 
 	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 
+	[[nodiscard]] virtual bool isSameType(OrganismType other) const = 0;
+
+	/* Collision */
+
+	virtual void collision(Organism* attacker, CollisionContext& context) = 0;
+
 	/* Destruction */
 
 	virtual ~Organism() { std::cout << "Destructor Organism" << std::endl; }
 };
+
+#define ORGANISM_IS_TYPE(type)                                                                                         \
+	[[nodiscard]] bool isSameType(Organism::OrganismType other) const override { return other == OrganismType::type; }
 
 
 #endif // GAMEOFLIFEOOP_ORGANISM_H

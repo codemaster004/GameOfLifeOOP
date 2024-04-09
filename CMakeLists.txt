@@ -42,6 +42,10 @@ add_executable(GameOfLifeOOP main.cpp
         src/Organism/Animals/Antelope.cpp
         src/Organism/Animals/Antelope.h
         src/Organism/Animal.cpp
-        src/Organism/Animal.h)
+        src/Organism/Animal.h
+        src/Organism/CollisionContext.cpp
+        src/Organism/CollisionContext.h
+        src/Utility/Core.h
+)
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)

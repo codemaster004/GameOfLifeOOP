@@ -9,7 +9,7 @@
 
 class Animal : public Organism {
 
-	int movementSpeedI_;
+	int t_movementSpeedI_;
 
 	static float envSizeBound(int newValue, int envSize);
 
@@ -17,13 +17,16 @@ class Animal : public Organism {
 
 public:
 	Animal() {
-		movementSpeedI_ = 1;
+		t_movementSpeedI_ = 1;
 		this->t_symbolC = 'A';
 	}
 
 	Vec2 step() override;
+
+	void collision(Organism* attacker, CollisionContext& context) override {}
+
+	ORGANISM_IS_TYPE(Animal);
 };
 
 
-
-#endif //ANIMAL_H
+#endif // ANIMAL_H
