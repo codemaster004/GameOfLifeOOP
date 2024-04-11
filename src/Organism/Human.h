@@ -10,7 +10,7 @@
 class Human : public Organism {
 public:
 	Human() {
-		t_ageI = 4;
+		t_initiativeI = 4;
 		t_symbolC = 'H';
 
 		std::cout << "Constructor Human" << std::endl;
