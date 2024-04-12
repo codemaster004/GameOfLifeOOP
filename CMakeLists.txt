@@ -19,27 +19,16 @@ add_executable(GameOfLifeOOP main.cpp
         src/World.h
         src/Utility/Vec2.h
         src/Utility/Vec2.cpp
-        src/Organism/Plants/Grass.cpp
         src/Organism/Plants/Grass.h
-        src/Organism/Plant.cpp
         src/Organism/Plant.h
-        src/Organism/Plants/SowThistle.cpp
         src/Organism/Plants/SowThistle.h
-        src/Organism/Plants/Guarana.cpp
         src/Organism/Plants/Guarana.h
-        src/Organism/Plants/Belladonna.cpp
         src/Organism/Plants/Belladonna.h
-        src/Organism/Plants/SosnowskysHogweed.cpp
         src/Organism/Plants/SosnowskysHogweed.h
-        src/Organism/Animals/Wolf.cpp
         src/Organism/Animals/Wolf.h
-        src/Organism/Animals/Sheep.cpp
         src/Organism/Animals/Sheep.h
-        src/Organism/Animals/Fox.cpp
         src/Organism/Animals/Fox.h
-        src/Organism/Animals/Turtle.cpp
         src/Organism/Animals/Turtle.h
-        src/Organism/Animals/Antelope.cpp
         src/Organism/Animals/Antelope.h
         src/Organism/Animal.cpp
         src/Organism/Animal.h
