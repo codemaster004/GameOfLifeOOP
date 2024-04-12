@@ -7,11 +7,19 @@
  * @date 20/03/2024
  */
 #include "World.h"
+#include "Organism/CollisionContext.h"
 
 
-bool World::compareGraterInitiative(const OrganismInfo& iterE, const std::unique_ptr<Organism>& newE) {
-	return iterE.organism_p->getInitiative() > newE->getInitiative() ||
-		   (iterE.organism_p->getInitiative() == newE->getInitiative() && iterE.organism_p->getAge() > newE->getAge());
+void World::moveInWorld(Vec2 initialPos, Vec2 destinationPos) {
+	int fromY = static_cast<int>(initialPos.y), fromX = static_cast<int>(initialPos.x);
+	int toY = static_cast<int>(destinationPos.y), toX = static_cast<int>(destinationPos.x);
+	t_worldPlane[toY][toX] = t_worldPlane[fromY][fromX];
+	t_worldPlane[fromY][fromX] = nullptr;
+}
+
+bool World::compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE) {
+	return iterE->getInitiative() > newE->getInitiative() ||
+		   (iterE->getInitiative() == newE->getInitiative() && iterE->getAge() > newE->getAge());
 }
 
 void World::addOrganism(Organism* newOrganism) {
@@ -26,7 +34,7 @@ void World::addOrganism(Organism* newOrganism) {
 	// Use std::lower_bound with the comparison function to find correct space in the vector
 	auto iter = std::lower_bound(t_organisms.begin(), t_organisms.end(), organismPtr, compareGraterInitiative);
 	// Insert the unique_ptr into the vector, transferring ownership
-	t_organisms.insert(iter, {std::move(organismPtr), {0, 0}});
+	t_organisms.insert(iter, std::move(organismPtr));
 }
 
 void World::addOrganism(Organism* newOrganism, int atX, int atY) {
@@ -39,14 +47,29 @@ void World::addOrganism(Organism* newOrganism, int atX, int atY) {
 
 void World::updateWorld() {
 	for (auto organism_p = t_organisms.begin(); organism_p != t_organisms.end();) {
-		if (!organism_p->organism_p->isAlive()) {
+		if (!(*organism_p)->isAlive()) {
 			// at this stage raw pointer in worldPlane sould already be removed
 			// todo: check & throw
 
 			// Remove the Organism from the vector, and keep the loop in place
 			organism_p = t_organisms.erase(organism_p);
 		} else {
-			organism_p->organism_p->step(); // run the action for the organism
+			Vec2 moveTo = (*organism_p)->step(); // generate new possition for organisms
+
+			if (moveTo.x < 0 || moveTo.y < 0) {
+				++organism_p; // skip this Organism
+				continue;
+			}
+
+			if (isOccupied(moveTo)) {
+				// create a information about collision happning and resolve it
+				CollisionContext context((*organism_p)->getStrength(), moveTo);
+				getFromWorld(moveTo)->collision(organism_p->get(), context);
+			}
+
+			moveInWorld((*organism_p)->getPossition(), moveTo);
+			(*organism_p)->setPosition(moveTo);
+
 			++organism_p; // move to the next Organism
 		}
 	}
@@ -71,3 +94,4 @@ void World::drawWorld() const {
 }
 
 bool World::isOccupied(int x, int y) const { return t_worldPlane[y][x] != nullptr; }
+bool World::isOccupied(Vec2 pos) const { return isOccupied(static_cast<int>(pos.x), static_cast<int>(pos.y)); }

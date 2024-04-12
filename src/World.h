@@ -13,16 +13,17 @@
 class World {
 	int t_sizeI;
 
-	struct OrganismInfo {
-		std::unique_ptr<Organism> organism_p;
-		Vec2 moveVec2;
-	};
-
-	std::vector<OrganismInfo> t_organisms;
+	std::vector<std::unique_ptr<Organism>> t_organisms;
 
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
-	static bool compareGraterInitiative(const OrganismInfo& iterE, const std::unique_ptr<Organism>& newE);
+	Organism* getFromWorld(Vec2 position) {
+		return t_worldPlane[static_cast<int>(position.y)][static_cast<int>(position.x)];
+	}
+
+	void moveInWorld(Vec2 initialPos, Vec2 destinationPos);
+
+	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
 
 public:
 	explicit World(int size) : t_sizeI(size) {
@@ -40,6 +41,7 @@ public:
 	void drawWorld() const;
 
 	[[nodiscard]] bool isOccupied(int x, int y) const;
+	[[nodiscard]] bool isOccupied(Vec2 pos) const;
 
 	/* Getters & Setters */
 

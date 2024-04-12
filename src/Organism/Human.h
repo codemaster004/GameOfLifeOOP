@@ -16,7 +16,7 @@ public:
 		std::cout << "Constructor Human" << std::endl;
 	}
 
-	Vec2 step() override { return {0, 0}; }
+	Vec2 step() override { return {-1, -1}; }
 
 	void collision(Organism* attacker, CollisionContext& context) override {}
 

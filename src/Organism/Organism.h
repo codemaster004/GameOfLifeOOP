@@ -75,9 +75,11 @@ public:
 	[[nodiscard]] bool isAlive() const { return t_aliveBCond; }
 	void unalive() { this->t_aliveBCond = false; }
 
+	[[nodiscard]] Vec2 getPossition() const { return t_positionVec2; }
 	[[nodiscard]] int getX() const { return static_cast<int>(t_positionVec2.x); }
 	[[nodiscard]] int getY() const { return static_cast<int>(t_positionVec2.y); }
 	void setPosition(int x, int y) { this->t_positionVec2 = Vec2{static_cast<float>(x), static_cast<float>(y)}; }
+	void setPosition(Vec2 newPos) { this->t_positionVec2 = newPos; }
 
 	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 

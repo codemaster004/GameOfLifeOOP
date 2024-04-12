@@ -9,20 +9,18 @@
 
 
 class CollisionContext {
-	Organism* t_attackingOrganism;
 	Vec2& t_attackerFromVec2;
 
 	int t_demageI;
 
 public:
-	CollisionContext(Organism* attacker, Vec2& attackFrom) :
-		t_attackingOrganism(attacker), t_attackerFromVec2(attackFrom), t_demageI(attacker->getStrength()) {}
+	CollisionContext(int attackDemage, Vec2& attackFrom) : t_attackerFromVec2(attackFrom), t_demageI(attackDemage) {}
 
-	void resolveByFight();
+	void resolveByFighting(Organism* defender, Organism* attacker) {}
 
-	void resolveByDeflecting();
+	void resolveByDeflecting(Organism* attacker) {}
 
-	void resolveByEscaping();
+	void resolveByEscaping(Organism* defender) {}
 };
 
 
