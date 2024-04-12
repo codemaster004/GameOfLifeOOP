@@ -9,7 +9,12 @@
 
 class Antelope : public Animal {
 public:
-	Antelope() { t_symbolC = 'A'; }
+	Antelope() {
+		t_symbolC = 'A';
+		t_strengthI = 4;
+		t_initiativeI = 4;
+		t_movementSpeedI_ = 2;
+	}
 };
 
 

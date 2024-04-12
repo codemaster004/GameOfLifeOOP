@@ -9,11 +9,13 @@
 
 class Animal : public Organism {
 
-	int t_movementSpeedI_;
-
 	static float envSizeBound(int newValue, int envSize);
 
-	static Vec2 generateNewRandomPosition(Vec2 currectPos, const World* enviroment_p);
+	static Vec2 generateNewRandomPosition(Vec2 currectPos, const World* enviroment_p, int range,
+										  bool allowNoMovement = false);
+
+protected:
+	int t_movementSpeedI_;
 
 public:
 	Animal() {

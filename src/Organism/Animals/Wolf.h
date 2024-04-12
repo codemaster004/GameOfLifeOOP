@@ -9,7 +9,11 @@
 
 class Wolf : public Animal {
 public:
-	Wolf() { t_symbolC = 'W'; }
+	Wolf() {
+		t_symbolC = 'W';
+		t_strengthI = 9;
+		t_initiativeI = 5;
+	}
 };
 
 

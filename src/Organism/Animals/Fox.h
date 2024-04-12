@@ -9,7 +9,11 @@
 
 class Fox : public Animal {
 public:
-	Fox() { t_symbolC = 'F'; }
+	Fox() {
+		t_symbolC = 'F';
+		t_strengthI = 3;
+		t_initiativeI = 7;
+	}
 };
 
 
