@@ -76,6 +76,8 @@ void World::updateWorld() {
 }
 
 void World::drawWorld() const {
+	std::cout << "\033[2J\033[H"; // Clear the screen and move the cursor to the home position
+
 	for (auto& worldRow: t_worldPlane) {
 		for (auto& org_p: worldRow) {
 			std::cout << " "; // prettying the output

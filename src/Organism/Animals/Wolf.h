@@ -8,9 +8,9 @@
 
 
 class Wolf : public Animal {
-
+public:
+	Wolf() { t_symbolC = 'W'; }
 };
 
 
-
-#endif //WOLF_H
+#endif // WOLF_H

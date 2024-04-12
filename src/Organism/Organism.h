@@ -53,9 +53,7 @@ public:
 
 	Organism() :
 		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_symbolC(ORGANISM_SYMBOL), t_positionVec2(),
-		t_enviromentWorld_p(nullptr) {
-		std::cout << "Constructor Organism" << std::endl;
-	}
+		t_enviromentWorld_p(nullptr) {}
 
 	virtual Vec2 step() = 0;
 
@@ -91,7 +89,7 @@ public:
 
 	/* Destruction */
 
-	virtual ~Organism() { std::cout << "Destructor Organism" << std::endl; }
+	virtual ~Organism() = default;
 };
 
 #define ORGANISM_IS_TYPE(type)                                                                                         \

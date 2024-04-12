@@ -8,9 +8,9 @@
 
 
 class Antelope : public Animal {
-	Antelope() {}
+public:
+	Antelope() { t_symbolC = 'A'; }
 };
 
 
-
-#endif //ANTELOPE_H
+#endif // ANTELOPE_H

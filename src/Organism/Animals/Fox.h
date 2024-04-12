@@ -8,9 +8,9 @@
 
 
 class Fox : public Animal {
-
+public:
+	Fox() { t_symbolC = 'F'; }
 };
 
 
-
-#endif //FOX_H
+#endif // FOX_H

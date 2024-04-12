@@ -18,7 +18,7 @@ class Animal : public Organism {
 public:
 	Animal() {
 		t_movementSpeedI_ = 1;
-		this->t_symbolC = 'A';
+		this->t_symbolC = '0';
 	}
 
 	Vec2 step() override;

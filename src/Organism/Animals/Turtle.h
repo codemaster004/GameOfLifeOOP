@@ -7,10 +7,10 @@
 #include "../Animal.h"
 
 
-class Turtle : public Animal{
-
+class Turtle : public Animal {
+public:
+	Turtle() { t_symbolC = 'T'; }
 };
 
 
-
-#endif //TURTLE_H
+#endif // TURTLE_H
