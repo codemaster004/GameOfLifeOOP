@@ -35,6 +35,7 @@ add_executable(GameOfLifeOOP main.cpp
         src/Organism/CollisionContext.cpp
         src/Organism/CollisionContext.h
         src/Utility/Core.h
+        src/Organism/Animals/Fox.cpp
 )
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)

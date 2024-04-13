@@ -7,12 +7,19 @@
  * @date 20/03/2024
  */
 #include "World.h"
+
+#include <list>
+
 #include "Organism/CollisionContext.h"
 
 
 void World::moveInWorld(Vec2 initialPos, Vec2 destinationPos) {
-	int fromY = static_cast<int>(initialPos.y), fromX = static_cast<int>(initialPos.x);
-	int toY = static_cast<int>(destinationPos.y), toX = static_cast<int>(destinationPos.x);
+	if (!isValidPosition(destinationPos)) {
+		return;
+	}
+
+	int fromY = initialPos.y, fromX = initialPos.x;
+	int toY = destinationPos.y, toX = destinationPos.x;
 	t_worldPlane[toY][toX] = t_worldPlane[fromY][fromX];
 	t_worldPlane[fromY][fromX] = nullptr;
 }
@@ -46,6 +53,8 @@ void World::addOrganism(Organism* newOrganism, int atX, int atY) {
 }
 
 void World::updateWorld() {
+	std::list<CollisionContext> collisionsInfo;
+
 	for (auto organism_p = t_organisms.begin(); organism_p != t_organisms.end();) {
 		if (!(*organism_p)->isAlive()) {
 			// at this stage raw pointer in worldPlane sould already be removed
@@ -62,9 +71,10 @@ void World::updateWorld() {
 			}
 
 			if (isOccupied(moveTo)) {
-				// create a information about collision happning and resolve it
-				CollisionContext context((*organism_p)->getStrength(), moveTo);
+				// create a information about collision happening and resolve it
+				CollisionContext context((*organism_p)->getStrength(), (*organism_p)->getPossition(), moveTo);
 				getFromWorld(moveTo)->collision(organism_p->get(), context);
+				collisionsInfo.push_back(context);
 			}
 
 			moveInWorld((*organism_p)->getPossition(), moveTo);
@@ -72,6 +82,9 @@ void World::updateWorld() {
 
 			++organism_p; // move to the next Organism
 		}
+	}
+	for (auto& info: collisionsInfo) {
+		info.log();
 	}
 }
 
@@ -96,4 +109,28 @@ void World::drawWorld() const {
 }
 
 bool World::isOccupied(int x, int y) const { return t_worldPlane[y][x] != nullptr; }
-bool World::isOccupied(Vec2 pos) const { return isOccupied(static_cast<int>(pos.x), static_cast<int>(pos.y)); }
+bool World::isOccupied(Vec2 pos) const { return isOccupied(pos.x, pos.y); }
+
+void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit) {
+	for (int i = -1; i < 2; ++i) {
+		for (int j = -1; j < 2; ++j) {
+			// do not check moving 0 in both directions
+			if (i == 0 && j == 0) {
+				continue;
+			}
+
+			Vec2 checkPos = position + Vec2{i, j};
+			// only accept positions that fit inside the world borders
+			if (!isInWorldBound(checkPos.x) || !isInWorldBound(checkPos.y)) {
+				continue;
+			}
+
+			// always accept spots that are unoccupied
+			if (!isOccupied(checkPos) || // or if strengthLimit is defined spots where animal has less strength
+				strengthLimit != 0 && getFromWorld(checkPos)->getStrength() < strengthLimit) {
+
+				buffor.insert(checkPos);
+			}
+		}
+	}
+}

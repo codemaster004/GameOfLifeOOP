@@ -7,6 +7,7 @@
 
 #include "Organism/Organism.h"
 
+#include <set>
 #include <vector>
 
 
@@ -17,13 +18,14 @@ class World {
 
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
-	Organism* getFromWorld(Vec2 position) {
-		return t_worldPlane[static_cast<int>(position.y)][static_cast<int>(position.x)];
-	}
-
 	void moveInWorld(Vec2 initialPos, Vec2 destinationPos);
 
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
+
+	[[nodiscard]] bool isInWorldBound(int value) const { return value >= 0 && value < t_sizeI; }
+	[[nodiscard]] bool isValidPosition(Vec2 pos) const {
+		return pos.x >= 0 && pos.y >= 0 && pos.x < t_sizeI && pos.y < t_sizeI;
+	}
 
 public:
 	explicit World(int size) : t_sizeI(size) {
@@ -44,6 +46,10 @@ public:
 	[[nodiscard]] bool isOccupied(Vec2 pos) const;
 
 	/* Getters & Setters */
+
+	[[nodiscard]] Organism* getFromWorld(Vec2 position) const { return t_worldPlane[position.y][position.x]; }
+
+	void getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit = 0);
 
 	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };

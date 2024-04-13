@@ -13,7 +13,7 @@
  * in order to simplify mathematical operation.
  */
 struct Vec2 {
-	float x, y; ///< table with coordinates for each dimension
+	int x, y; ///< table with coordinates for each dimension
 
 	/// Static method to get a base X axis
 	static Vec2 unitX();
@@ -57,8 +57,7 @@ struct Vec2 {
 	 * @param scalar The scalar value to multiply the vector by.
 	 * @return The resulting vector after scalar multiplication.
 	 */
-	[[nodiscard]]
-	Vec2 scalarMultiply(float scalar);
+	[[nodiscard]] Vec2 scalarMultiply(float scalar);
 
 
 	/* Scalar Multiplication operators */
@@ -69,9 +68,7 @@ struct Vec2 {
 	}
 
 
-	void operator*=(float scalar) {
-		*this = this->scalarMultiply(scalar);
-	}
+	void operator*=(float scalar) { *this = this->scalarMultiply(scalar); }
 
 
 	Vec2 operator/(float scalar) {
@@ -80,9 +77,7 @@ struct Vec2 {
 	}
 
 
-	void operator/=(float scalar) {
-		*this = this->scalarMultiply(1 / scalar);
-	}
+	void operator/=(float scalar) { *this = this->scalarMultiply(1 / scalar); }
 
 
 	/// + Add operations
@@ -99,9 +94,7 @@ struct Vec2 {
 	}
 
 
-	void operator+=(const Vec2& vec) {
-		this->add(vec);
-	}
+	void operator+=(const Vec2& vec) { this->add(vec); }
 
 
 	/// - Subtract operation
@@ -118,9 +111,7 @@ struct Vec2 {
 	}
 
 
-	void operator-=(const Vec2& vec) {
-		this->subtract(vec);
-	}
+	void operator-=(const Vec2& vec) { this->subtract(vec); }
 
 
 	/// * Multiply operation
@@ -137,9 +128,7 @@ struct Vec2 {
 	}
 
 
-	void operator*=(const Vec2& vec) {
-		this->multiply(vec);
-	}
+	void operator*=(const Vec2& vec) { this->multiply(vec); }
 
 
 	/// / Divide operation
@@ -156,33 +145,22 @@ struct Vec2 {
 	}
 
 
-	void operator/=(const Vec2& vec) {
-		this->divide(vec);
-	}
+	void operator/=(const Vec2& vec) { this->divide(vec); }
 
 
 	/// == Equality check
-	bool operator==(const Vec2& vec) const {
-		return x == vec.x && y == vec.y;
-	}
+	bool operator==(const Vec2& vec) const { return x == vec.x && y == vec.y; }
 
 
-	bool operator!=(const Vec2& vec) const {
-		return !(*this == vec);
-	}
+	bool operator!=(const Vec2& vec) const { return !(*this == vec); }
 
 
 	/// < is Less than
-	bool operator<(const Vec2& vec) const {
-		return dot(*this, *this) < dot(vec, vec);
-	}
+	bool operator<(const Vec2& vec) const { return dot(*this, *this) < dot(vec, vec); }
 
 
 	/// > is More than
-	bool operator>(const Vec2& vec) const {
-		return dot(*this, *this) > dot(vec, vec);
-	}
-
+	bool operator>(const Vec2& vec) const { return dot(*this, *this) > dot(vec, vec); }
 };
 
-#endif //GAMEOFLIFEOOP_VEC2_H
+#endif // GAMEOFLIFEOOP_VEC2_H

@@ -13,7 +13,7 @@ public:
 		t_symbolC = 'A';
 		t_strengthI = 4;
 		t_initiativeI = 4;
-		t_movementSpeedI_ = 2;
+		t_movementSpeedI = 2;
 	}
 };
 

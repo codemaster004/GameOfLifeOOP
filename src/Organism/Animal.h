@@ -4,28 +4,31 @@
 
 #ifndef ANIMAL_H
 #define ANIMAL_H
+#include "CollisionContext.h"
 #include "Organism.h"
 
 
 class Animal : public Organism {
-
-	static float envSizeBound(int newValue, int envSize);
-
-	static Vec2 generateNewRandomPosition(Vec2 currectPos, const World* enviroment_p, int range,
-										  bool allowNoMovement = false);
-
 protected:
-	int t_movementSpeedI_;
+	static int envSizeBound(int newValue, int envSize);
+
+	static int getRandom(int from, int to);
+
+	static Vec2 generateRandomPosition(Vec2 currectPos, const World* enviroment_p, int range, bool canStay = false);
+
+	int t_movementSpeedI;
 
 public:
 	Animal() {
-		t_movementSpeedI_ = 1;
+		t_movementSpeedI = 1;
 		this->t_symbolC = '0';
 	}
 
 	Vec2 step() override;
 
-	void collision(Organism* attacker, CollisionContext& context) override {}
+	void collision(Organism* attacker, CollisionContext& context) override {
+		context.resolveByFighting(this, attacker);
+	}
 
 	ORGANISM_IS_TYPE(Animal);
 };
