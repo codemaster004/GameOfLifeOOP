@@ -14,6 +14,8 @@ public:
 		t_strengthI = 2;
 		t_initiativeI = 1;
 	}
+
+	Vec2 step() override;
 };
 
 

@@ -30,7 +30,7 @@ bool World::compareGraterInitiative(const std::unique_ptr<Organism>& iterE, cons
 }
 
 void World::addOrganism(Organism* newOrganism) {
-	// Set Enviroment as this Word
+	// Set Enviroment as this World
 	newOrganism->setEnviroment(this);
 
 	// Wrap the raw pointer in a std::unique_ptr before insertion
@@ -77,8 +77,13 @@ void World::updateWorld() {
 				collisionsInfo.push_back(context);
 			}
 
-			moveInWorld((*organism_p)->getPossition(), moveTo);
-			(*organism_p)->setPosition(moveTo);
+			if (moveTo.x >= 0 && moveTo.y >= 0) { // in case of collision next check here
+				moveInWorld((*organism_p)->getPossition(), moveTo);
+				(*organism_p)->setPosition(moveTo);
+			} else {
+				// whan collision happened make sure to set the field as empty
+				t_worldPlane[(*organism_p)->getY()][(*organism_p)->getX()] = nullptr;
+			}
 
 			++organism_p; // move to the next Organism
 		}
