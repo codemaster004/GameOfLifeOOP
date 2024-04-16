@@ -9,6 +9,13 @@
 
 
 class CollisionContext {
+
+	enum ResolvedBy {
+		Fight,
+		Deflect,
+		Escape,
+	};
+
 	Vec2 t_attackFrom;
 	Vec2 t_attackTo;
 
@@ -17,6 +24,8 @@ class CollisionContext {
 	int t_demageI;
 
 	bool t_wonByAttacker;
+
+	ResolvedBy t_resolvedBy;
 
 public:
 	CollisionContext(int attackDemage, Vec2 attackFrom, Vec2& attackTo) :

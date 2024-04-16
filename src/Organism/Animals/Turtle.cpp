@@ -14,3 +14,11 @@ Vec2 Turtle::step() {
 	}
 	return Animal::step();
 }
+
+void Turtle::collision(Organism* attacker, CollisionContext& context) {
+	if (attacker->getStrength() < 5) {
+		context.resolveByDeflecting(attacker);
+	} else {
+		context.resolveByFighting(this, attacker);
+	}
+}

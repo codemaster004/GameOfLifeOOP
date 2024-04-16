@@ -26,9 +26,7 @@ public:
 
 	Vec2 step() override;
 
-	void collision(Organism* attacker, CollisionContext& context) override {
-		context.resolveByFighting(this, attacker);
-	}
+	void collision(Organism* attacker, CollisionContext& context) override;
 
 	ORGANISM_IS_TYPE(Animal);
 };

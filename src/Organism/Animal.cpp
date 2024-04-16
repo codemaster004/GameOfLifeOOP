@@ -39,3 +39,5 @@ Vec2 Animal::generateRandomPosition(Vec2 currectPos, const World* enviroment_p, 
 }
 
 Vec2 Animal::step() { return generateRandomPosition(t_positionVec2, t_enviromentWorld_p, t_movementSpeedI); }
+
+void Animal::collision(Organism* attacker, CollisionContext& context) { context.resolveByFighting(this, attacker); }

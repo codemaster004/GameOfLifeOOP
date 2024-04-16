@@ -31,6 +31,9 @@ int main() {
 
 	world.addOrganism(new Antelope(), 3, 4);
 	world.addOrganism(new Antelope(), 4, 3);
+	world.addOrganism(new Antelope(), 0, 0);
+	world.addOrganism(new Antelope(), 0, 1);
+	world.addOrganism(new Antelope(), 1, 0);
 
 	world.drawWorld();
 	std::cout << std::endl;
