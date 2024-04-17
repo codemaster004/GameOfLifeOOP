@@ -18,8 +18,6 @@ class World {
 
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
-	void moveInWorld(Vec2 initialPos, Vec2 destinationPos);
-
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
 
 	[[nodiscard]] bool isInWorldBound(int value) const { return value >= 0 && value < t_sizeI; }
@@ -37,6 +35,9 @@ public:
 
 	void addOrganism(Organism* newOrganism);
 	void addOrganism(Organism* newOrganism, int atX, int atY);
+
+	void moveInWorld(Vec2 initialPos, Vec2 destinationPos);
+	void removeFrom(Vec2 position);
 
 	void updateWorld();
 

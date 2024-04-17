@@ -14,18 +14,18 @@ void CollisionContext::resolveByFighting(Organism* defender, Organism* attacker)
 	// if defender is stronger attacker dies
 	if (defender->isStrongerThan(attacker)) {
 		attacker->unalive();
+		attacker->removeFromWorld();
 		t_attackerMoveVec2 = {-1, -1};
 	} else {
 		// of attacker is stronger or exacly the same defender dies
 		defender->unalive();
+		attacker->moveTo(t_attackTo);
+
 		t_wonByAttacker = true;
 	}
 }
 
-void CollisionContext::resolveByDeflecting(Organism* attacker) {
-	t_resolvedBy = Deflect;
-	t_attackerMoveVec2 = {-1, -1};
-}
+void CollisionContext::resolveByDeflecting(Organism* attacker) { t_resolvedBy = Deflect; }
 
 void CollisionContext::resolveByEscaping(Organism* defender) { t_resolvedBy = Escape; }
 

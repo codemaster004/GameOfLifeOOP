@@ -24,6 +24,8 @@ void World::moveInWorld(Vec2 initialPos, Vec2 destinationPos) {
 	t_worldPlane[fromY][fromX] = nullptr;
 }
 
+void World::removeFrom(Vec2 position) { t_worldPlane[position.y][position.x] = nullptr; }
+
 bool World::compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE) {
 	return iterE->getInitiative() > newE->getInitiative() ||
 		   (iterE->getInitiative() == newE->getInitiative() && iterE->getAge() > newE->getAge());
@@ -75,15 +77,18 @@ void World::updateWorld() {
 				CollisionContext context((*organism_p)->getStrength(), (*organism_p)->getPossition(), moveTo);
 				getFromWorld(moveTo)->collision(organism_p->get(), context);
 				collisionsInfo.push_back(context);
-			}
-
-			if (moveTo.x >= 0 && moveTo.y >= 0) { // in case of collision next check here
+			} else {
 				moveInWorld((*organism_p)->getPossition(), moveTo);
 				(*organism_p)->setPosition(moveTo);
-			} else {
-				// whan collision happened make sure to set the field as empty
-				t_worldPlane[(*organism_p)->getY()][(*organism_p)->getX()] = nullptr;
 			}
+
+			// if (moveTo.x >= 0 && moveTo.y >= 0) { // in case of collision next check here
+			// 	moveInWorld((*organism_p)->getPossition(), moveTo);
+			//	(*organism_p)->setPosition(moveTo);
+			// } else {
+			// 	// whan collision happened make sure to set the field as empty
+			// 	t_worldPlane[(*organism_p)->getY()][(*organism_p)->getX()] = nullptr;
+			// }
 
 			++organism_p; // move to the next Organism
 		}

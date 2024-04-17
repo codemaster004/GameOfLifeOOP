@@ -60,6 +60,9 @@ public:
 	bool isWeakerThan(const Organism* other) const;
 	bool isStrongerThan(const Organism* other) const;
 
+	void moveTo(Vec2 destination);
+	void removeFromWorld() const;
+
 	/* Getters & Setters */
 
 	[[nodiscard]] int getStrength() const { return t_strengthI; }
