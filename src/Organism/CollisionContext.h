@@ -19,8 +19,6 @@ class CollisionContext {
 	Vec2 t_attackFrom;
 	Vec2 t_attackTo;
 
-	Vec2& t_attackerMoveVec2;
-
 	int t_demageI;
 
 	bool t_wonByAttacker;
@@ -28,9 +26,8 @@ class CollisionContext {
 	ResolvedBy t_resolvedBy;
 
 public:
-	CollisionContext(int attackDemage, Vec2 attackFrom, Vec2& attackTo) :
-		t_attackFrom(attackFrom), t_attackTo(attackTo), t_attackerMoveVec2(attackTo), t_demageI(attackDemage),
-		t_wonByAttacker(false) {}
+	CollisionContext(int attackDemage, Vec2 attackFrom, Vec2 attackTo) :
+		t_attackFrom(attackFrom), t_attackTo(attackTo), t_demageI(attackDemage), t_wonByAttacker(false) {}
 
 	void resolveByFighting(Organism* defender, Organism* attacker);
 

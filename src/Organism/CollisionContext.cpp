@@ -15,7 +15,6 @@ void CollisionContext::resolveByFighting(Organism* defender, Organism* attacker)
 	if (defender->isStrongerThan(attacker)) {
 		attacker->unalive();
 		attacker->removeFromWorld();
-		t_attackerMoveVec2 = {-1, -1};
 	} else {
 		// of attacker is stronger or exacly the same defender dies
 		defender->unalive();
