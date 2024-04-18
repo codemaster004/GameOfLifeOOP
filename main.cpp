@@ -16,24 +16,22 @@ int main() {
 
 	// world.addOrganism(new Human(), 0, 0);
 
-#define TEST_ANIMAL new Turtle()
-	world.addOrganism(TEST_ANIMAL, 1, 1);
-	world.addOrganism(TEST_ANIMAL, 1, 2);
-	world.addOrganism(TEST_ANIMAL, 1, 3);
-	world.addOrganism(TEST_ANIMAL, 3, 1);
-	world.addOrganism(TEST_ANIMAL, 3, 2);
-	world.addOrganism(TEST_ANIMAL, 3, 3);
+#define TEST_ANIMAL new Wolf()
 	// world.addOrganism(TEST_ANIMAL, 2, 1);
+	world.addOrganism(TEST_ANIMAL, 1, 2);
+	world.addOrganism(TEST_ANIMAL, 3, 2);
 	world.addOrganism(TEST_ANIMAL, 2, 3);
 
+	world.addOrganism(new Antelope(), 2, 2);
 
-	world.addOrganism(new Fox(), 2, 2);
 
-	world.addOrganism(new Antelope(), 3, 4);
-	world.addOrganism(new Antelope(), 4, 3);
-	world.addOrganism(new Antelope(), 0, 0);
-	world.addOrganism(new Antelope(), 0, 1);
-	world.addOrganism(new Antelope(), 1, 0);
+	// world.addOrganism(new Fox(), 2, 2);
+	//
+	// world.addOrganism(new Antelope(), 3, 4);
+	// world.addOrganism(new Antelope(), 4, 3);
+	// world.addOrganism(new Antelope(), 0, 0);
+	// world.addOrganism(new Antelope(), 0, 1);
+	// world.addOrganism(new Antelope(), 1, 0);
 
 	world.drawWorld();
 	std::cout << std::endl;

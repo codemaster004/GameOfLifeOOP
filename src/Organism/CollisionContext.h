@@ -11,6 +11,7 @@
 class CollisionContext {
 
 	enum ResolvedBy {
+		Uresolved,
 		Fight,
 		Deflect,
 		Escape,
@@ -25,15 +26,20 @@ class CollisionContext {
 
 	ResolvedBy t_resolvedBy;
 
+	World* t_world_p;
+
 public:
-	CollisionContext(int attackDemage, Vec2 attackFrom, Vec2 attackTo) :
-		t_attackFrom(attackFrom), t_attackTo(attackTo), t_demageI(attackDemage), t_wonByAttacker(false) {}
+	CollisionContext(int attackDemage, Vec2 attackFrom, Vec2 attackTo, World* world) :
+		t_attackFrom(attackFrom), t_attackTo(attackTo), t_demageI(attackDemage), t_wonByAttacker(false),
+		t_world_p(world) {
+		t_resolvedBy = Uresolved;
+	}
 
 	void resolveByFighting(Organism* defender, Organism* attacker);
 
 	void resolveByDeflecting(Organism* attacker);
 
-	void resolveByEscaping(Organism* defender);
+	void resolveByEscaping(Organism* defender, Organism* attacker);
 
 	void log() const;
 };

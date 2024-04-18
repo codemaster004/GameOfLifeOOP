@@ -31,5 +31,4 @@ public:
 	ORGANISM_IS_TYPE(Animal);
 };
 
-
 #endif // ANIMAL_H

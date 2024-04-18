@@ -15,6 +15,8 @@ public:
 		t_initiativeI = 4;
 		t_movementSpeedI = 2;
 	}
+
+	void collision(Organism* attacker, CollisionContext& context) override;
 };
 
 

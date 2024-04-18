@@ -74,7 +74,7 @@ void World::updateWorld() {
 
 			if (isOccupied(moveTo)) {
 				// create a information about collision happening and resolve it
-				CollisionContext context((*organism_p)->getStrength(), (*organism_p)->getPossition(), moveTo);
+				CollisionContext context((*organism_p)->getStrength(), (*organism_p)->getPossition(), moveTo, this);
 				getFromWorld(moveTo)->collision(organism_p->get(), context);
 				collisionsInfo.push_back(context);
 			} else {
@@ -89,6 +89,7 @@ void World::updateWorld() {
 			// 	// whan collision happened make sure to set the field as empty
 			// 	t_worldPlane[(*organism_p)->getY()][(*organism_p)->getX()] = nullptr;
 			// }
+			drawWorld();
 
 			++organism_p; // move to the next Organism
 		}
@@ -125,7 +126,8 @@ void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int s
 	for (int i = -1; i < 2; ++i) {
 		for (int j = -1; j < 2; ++j) {
 			// do not check moving 0 in both directions
-			if (i == 0 && j == 0) {
+			if (i == 0 && j == 0 || // or outside the movement range
+				Vec2::length({0, 0}, {i, j}) > 1) {
 				continue;
 			}
 
