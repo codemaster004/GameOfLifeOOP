@@ -27,7 +27,9 @@ Vec2 Animal::generateRandomPosition(Vec2 currectPos, const World* enviroment_p, 
 
 	int newRandomY = getRandom(-1 * range, 1 * range);
 	int newRandomX = getRandom(-1 * range, 1 * range);
-	while (!canStay && newRandomX == 0 && newRandomY == 0) {
+	// (!(newRandomX == 0 ^ newRandomY == 0))
+	while (!canStay && newRandomX == 0 && newRandomY == 0 ||
+		   Vec2::length({0, 0}, {newRandomX, newRandomY}) > static_cast<float>(range)) {
 		newRandomX = getRandom(-1 * range, 1 * range);
 		newRandomY = getRandom(-1 * range, 1 * range);
 	}
