@@ -13,7 +13,9 @@ public:
 		this->t_strengthI = 10;
 		this->t_symbolC = 'h';
 	}
+
 	Vec2 step() override;
+	void collision(Organism* attacker, CollisionContext& context) override;
 };
 
 

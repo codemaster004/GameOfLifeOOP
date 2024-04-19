@@ -51,6 +51,15 @@ void CollisionContext::resolveByEscaping(Organism* defender, Organism* attacker)
 		this->resolveByFighting(defender, attacker);
 	}
 }
+void CollisionContext::resolveByKillingBoth(Organism* defender, Organism* attacker) {
+	// kill the attacker and remove from world
+	t_world_p->removeFrom(attacker->getPossition());
+	attacker->unalive();
+
+	// kill the defender ant remove from world
+	t_world_p->removeFrom(defender->getPossition());
+	defender->unalive();
+}
 
 void CollisionContext::log() const {
 	switch (t_resolvedBy) {

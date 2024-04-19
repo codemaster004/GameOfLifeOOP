@@ -8,6 +8,8 @@
 #include "SosnowskysHogweed.h"
 
 #include "../../World.h"
+#include "../CollisionContext.h"
+
 
 Vec2 SosnowskysHogweed::step() {
 	std::set<Vec2> occupiedCells; // get heighbouring cells with organisms
@@ -20,4 +22,11 @@ Vec2 SosnowskysHogweed::step() {
 		t_enviromentWorld_p->removeFrom(neighbourPos);
 	}
 	return {-1, -1};
+}
+void SosnowskysHogweed::collision(Organism* attacker, CollisionContext& context) {
+	if (attacker->isGroup(Animal)) {
+		context.resolveByKillingBoth(this, attacker);
+	} else {
+		Plant::collision(attacker, context);
+	}
 }

@@ -19,6 +19,7 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override {}
 
 	ORGANISM_IS_TYPE(Human);
+	ORGANISM_IS_GROUP(Human);
 };
 
 

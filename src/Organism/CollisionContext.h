@@ -41,6 +41,8 @@ public:
 
 	void resolveByEscaping(Organism* defender, Organism* attacker);
 
+	void resolveByKillingBoth(Organism* defender, Organism* attacker);
+
 	void log() const;
 };
 

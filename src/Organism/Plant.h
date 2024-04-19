@@ -4,6 +4,7 @@
 
 #ifndef PLANT_H
 #define PLANT_H
+#include "CollisionContext.h"
 #include "Organism.h"
 
 
@@ -13,9 +14,12 @@ public:
 
 	Vec2 step() override { return {-1, -1}; }
 
-	void collision(Organism* attacker, CollisionContext& context) override {}
+	void collision(Organism* attacker, CollisionContext& context) override {
+		context.resolveByFighting(this, attacker);
+	}
 
 	ORGANISM_IS_TYPE(Plant);
+	ORGANISM_IS_GROUP(Plant);
 };
 
 

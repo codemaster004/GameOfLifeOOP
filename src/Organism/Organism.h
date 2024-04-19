@@ -9,6 +9,8 @@
 
 #include <iostream>
 
+#include "../Utility/Core.h"
+
 
 // Forward definitions for pointers
 class World;
@@ -30,7 +32,7 @@ protected:
 	World* t_enviromentWorld_p;
 
 public:
-	enum OrganismType {
+	enum class OrganismType {
 		Human,
 
 		Plant,
@@ -47,6 +49,12 @@ public:
 		Guarana,
 		SosnowskysHodweed,
 		SowThistle,
+	};
+
+	enum OrganismGroup {
+		Plant = BIT(0),
+		Animal = BIT(1),
+		Human = BIT(1) | BIT(2),
 	};
 
 	Organism() :
@@ -85,7 +93,8 @@ public:
 
 	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 
-	[[nodiscard]] virtual bool isSameType(OrganismType other) const = 0;
+	[[nodiscard]] virtual bool isType(OrganismType other) const = 0;
+	[[nodiscard]] virtual bool isGroup(OrganismGroup other) const = 0;
 
 	/* Collision */
 
@@ -97,7 +106,11 @@ public:
 };
 
 #define ORGANISM_IS_TYPE(type)                                                                                         \
-	[[nodiscard]] bool isSameType(Organism::OrganismType other) const override { return other == OrganismType::type; }
+	[[nodiscard]] bool isType(Organism::OrganismType other) const override { return other == OrganismType::type; }
+#define ORGANISM_IS_GROUP(group)                                                                                       \
+	[[nodiscard]] bool isGroup(Organism::OrganismGroup other) const override {                                         \
+		return (other & OrganismGroup::group) == OrganismGroup::group;                                                 \
+	}
 
 
 #endif // GAMEOFLIFEOOP_ORGANISM_H
