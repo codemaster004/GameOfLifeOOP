@@ -22,6 +22,8 @@ class Belladonna : public Plant {
 			Plant::collision(attacker, context);
 		}
 	}
+
+	Organism* getNewInstance() override { return new Belladonna(); }
 };
 
 

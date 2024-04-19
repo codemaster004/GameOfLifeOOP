@@ -12,8 +12,6 @@ class Animal : public Organism {
 protected:
 	static int envSizeBound(int newValue, int envSize);
 
-	static int getRandom(int from, int to);
-
 	static Vec2 generateRandomPosition(Vec2 currectPos, const World* enviroment_p, int range, bool canStay = false);
 
 	int t_movementSpeedI;

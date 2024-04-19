@@ -16,6 +16,8 @@ class Guarana : public Plant {
 		}
 		Plant::collision(attacker, context); // for simple call to default
 	}
+
+	Organism* getNewInstance() override { return new Guarana(); }
 };
 
 #endif // GUARANA_H

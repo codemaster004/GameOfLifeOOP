@@ -10,6 +10,8 @@
 class Grass : public Plant {
 public:
 	Grass() { t_symbolC = 'g'; }
+
+	Organism* getNewInstance() override { return new Grass(); }
 };
 
 

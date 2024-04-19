@@ -18,6 +18,8 @@ public:
 
 	void collision(Organism* attacker, CollisionContext& context) override {}
 
+	Organism* getNewInstance() override { return nullptr; }
+
 	ORGANISM_IS_TYPE(Human);
 	ORGANISM_IS_GROUP(Human);
 };

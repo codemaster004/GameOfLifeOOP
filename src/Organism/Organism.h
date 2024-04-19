@@ -62,14 +62,17 @@ public:
 		t_enviromentWorld_p(nullptr) {}
 
 	virtual Vec2 step() = 0;
-
 	virtual void draw() { std::cout << t_symbolC; }
+
+	virtual Organism* getNewInstance() = 0;
 
 	bool isWeakerThan(const Organism* other) const;
 	bool isStrongerThan(const Organism* other) const;
 
 	void moveTo(Vec2 destination);
 	void removeFromWorld() const;
+
+	static int getRandom(int from, int to);
 
 	/* Getters & Setters */
 

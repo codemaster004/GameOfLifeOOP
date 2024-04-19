@@ -17,6 +17,8 @@ public:
 	}
 
 	void collision(Organism* attacker, CollisionContext& context) override;
+
+	Organism* getNewInstance() override { return new Antelope(); }
 };
 
 

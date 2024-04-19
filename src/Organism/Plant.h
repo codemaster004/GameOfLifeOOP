@@ -9,10 +9,14 @@
 
 
 class Plant : public Organism {
+	int t_sowChancePrecent = 20;
+
 public:
 	Plant() { this->t_symbolC = 'p'; }
 
-	Vec2 step() override { return {-1, -1}; }
+	Vec2 sow();
+
+	Vec2 step() override;
 
 	void collision(Organism* attacker, CollisionContext& context) override {
 		context.resolveByFighting(this, attacker);

@@ -9,6 +9,8 @@
 
 class SowThistle : public Plant {
 	SowThistle() { this->t_symbolC = 's'; }
+
+	Organism* getNewInstance() override { return new SowThistle(); }
 };
 
 

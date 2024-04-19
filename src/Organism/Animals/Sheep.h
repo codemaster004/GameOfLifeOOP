@@ -14,6 +14,8 @@ public:
 		t_strengthI = 4;
 		t_initiativeI = 4;
 	}
+
+	Organism* getNewInstance() override { return new Sheep(); }
 };
 
 

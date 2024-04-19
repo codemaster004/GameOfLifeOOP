@@ -14,6 +14,8 @@ public:
 		t_strengthI = 9;
 		t_initiativeI = 5;
 	}
+
+	Organism* getNewInstance() override { return new Wolf(); }
 };
 
 

@@ -9,19 +9,8 @@
 #include "Animal.h"
 #include "../World.h"
 
-#include <random>
-
 
 int Animal::envSizeBound(int newValue, int envSize) { return newValue % envSize; }
-
-int Animal::getRandom(int from, int to) {
-	// Random number engine initialized with seed
-	std::mt19937 engine{std::random_device{}()};
-	// Uniform distribution from 1 to 100
-	std::uniform_int_distribution dist(from, to);
-
-	return dist(engine); // return random number from range
-}
 
 Vec2 Animal::generateRandomPosition(Vec2 currectPos, const World* enviroment_p, int range, bool canStay) {
 
