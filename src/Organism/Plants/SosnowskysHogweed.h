@@ -8,7 +8,9 @@
 
 
 class SosnowskysHogweed : public Plant {
+public:
 	SosnowskysHogweed() { this->t_symbolC = 'h'; }
+	Vec2 step() override;
 };
 
 

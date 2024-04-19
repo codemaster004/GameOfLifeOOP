@@ -38,6 +38,7 @@ add_executable(GameOfLifeOOP main.cpp
         src/Organism/Animals/Fox.cpp
         src/Organism/Animals/Turtle.cpp
         src/Organism/Animals/Antelope.cpp
+        src/Organism/Plants/SosnowskysHogweed.cpp
 )
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)

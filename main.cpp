@@ -9,6 +9,7 @@
 #include "src/Organism/Human.h"
 
 #include "src/Organism/Plants/Grass.h"
+#include "src/Organism/Plants/SosnowskysHogweed.h"
 
 
 int main() {
@@ -22,11 +23,12 @@ int main() {
 	world.addOrganism(TEST_ANIMAL, 3, 2);
 	world.addOrganism(TEST_ANIMAL, 2, 3);
 
-	world.addOrganism(new Antelope(), 2, 2);
+	world.addOrganism(new Antelope(), 4, 4);
 
+	world.addOrganism(new Fox(), 2, 2);
 
-	// world.addOrganism(new Fox(), 2, 2);
-	//
+	world.addOrganism(new SosnowskysHogweed(), 3, 3);
+
 	// world.addOrganism(new Antelope(), 3, 4);
 	// world.addOrganism(new Antelope(), 4, 3);
 	// world.addOrganism(new Antelope(), 0, 0);

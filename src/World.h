@@ -7,9 +7,11 @@
 
 #include "Organism/Organism.h"
 
+#include <functional>
 #include <set>
 #include <vector>
 
+// #define DEBUG
 
 class World {
 	int t_sizeI;
@@ -19,6 +21,8 @@ class World {
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
+
+	void iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback);
 
 	[[nodiscard]] bool isInWorldBound(int value) const { return value >= 0 && value < t_sizeI; }
 	[[nodiscard]] bool isValidPosition(Vec2 pos) const {
@@ -51,6 +55,8 @@ public:
 	[[nodiscard]] Organism* getFromWorld(Vec2 position) const { return t_worldPlane[position.y][position.x]; }
 
 	void getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit = 0);
+
+	void getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position);
 
 	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };

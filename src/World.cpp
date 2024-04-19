@@ -30,6 +30,25 @@ bool World::compareGraterInitiative(const std::unique_ptr<Organism>& iterE, cons
 	return iterE->getInitiative() > newE->getInitiative() ||
 		   (iterE->getInitiative() == newE->getInitiative() && iterE->getAge() > newE->getAge());
 }
+void World::iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback) {
+	for (int i = -1; i < 2; ++i) {
+		for (int j = -1; j < 2; ++j) {
+			// do not check moving 0 in both directions
+			if (i == 0 && j == 0 || // or outside the movement range
+				Vec2::length({0, 0}, {i, j}) > 1) {
+				continue;
+			}
+
+			Vec2 checkPos = pos + Vec2{i, j};
+			// only accept positions that fit inside the world borders
+			if (!isInWorldBound(checkPos.x) || !isInWorldBound(checkPos.y)) {
+				continue;
+			}
+
+			callback(checkPos);
+		}
+	}
+}
 
 void World::addOrganism(Organism* newOrganism) {
 	// Set Enviroment as this World
@@ -81,15 +100,9 @@ void World::updateWorld() {
 				moveInWorld((*organism_p)->getPossition(), moveTo);
 				(*organism_p)->setPosition(moveTo);
 			}
-
-			// if (moveTo.x >= 0 && moveTo.y >= 0) { // in case of collision next check here
-			// 	moveInWorld((*organism_p)->getPossition(), moveTo);
-			//	(*organism_p)->setPosition(moveTo);
-			// } else {
-			// 	// whan collision happened make sure to set the field as empty
-			// 	t_worldPlane[(*organism_p)->getY()][(*organism_p)->getX()] = nullptr;
-			// }
+#ifdef DEBUG
 			drawWorld();
+#endif // DEBUG
 
 			++organism_p; // move to the next Organism
 		}
@@ -123,26 +136,19 @@ bool World::isOccupied(int x, int y) const { return t_worldPlane[y][x] != nullpt
 bool World::isOccupied(Vec2 pos) const { return isOccupied(pos.x, pos.y); }
 
 void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit) {
-	for (int i = -1; i < 2; ++i) {
-		for (int j = -1; j < 2; ++j) {
-			// do not check moving 0 in both directions
-			if (i == 0 && j == 0 || // or outside the movement range
-				Vec2::length({0, 0}, {i, j}) > 1) {
-				continue;
-			}
+	iterateOverNeighbours(position, [&buffor, strengthLimit, this](Vec2 checkPos) {
+		// always accept spots that are unoccupied
+		if (!isOccupied(checkPos) || // or if strengthLimit is defined spots where animal has less strength
+			strengthLimit != 0 && getFromWorld(checkPos)->getStrength() < strengthLimit) {
 
-			Vec2 checkPos = position + Vec2{i, j};
-			// only accept positions that fit inside the world borders
-			if (!isInWorldBound(checkPos.x) || !isInWorldBound(checkPos.y)) {
-				continue;
-			}
-
-			// always accept spots that are unoccupied
-			if (!isOccupied(checkPos) || // or if strengthLimit is defined spots where animal has less strength
-				strengthLimit != 0 && getFromWorld(checkPos)->getStrength() < strengthLimit) {
-
-				buffor.insert(checkPos);
-			}
+			buffor.insert(checkPos);
 		}
-	}
+	});
+}
+void World::getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) {
+	iterateOverNeighbours(position, [&buffor, this](Vec2 checkPos) {
+		if (this->getFromWorld(checkPos) != nullptr) {
+			buffor.insert(checkPos);
+		}
+	});
 }
