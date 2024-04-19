@@ -8,7 +8,10 @@
 
 
 class Belladonna : public Plant {
-	Belladonna() { this->t_symbolC = 'b'; }
+	Belladonna() {
+		this->t_strengthI = 99;
+		this->t_symbolC = 'b';
+	}
 };
 
 
