@@ -30,7 +30,7 @@ bool World::compareGraterInitiative(const std::unique_ptr<Organism>& iterE, cons
 	return iterE->getInitiative() > newE->getInitiative() ||
 		   (iterE->getInitiative() == newE->getInitiative() && iterE->getAge() > newE->getAge());
 }
-void World::iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback) {
+void World::iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback) const {
 	for (int i = -1; i < 2; ++i) {
 		for (int j = -1; j < 2; ++j) {
 			// do not check moving 0 in both directions
@@ -67,10 +67,18 @@ void World::addOrganism(Organism* newOrganism) {
 
 void World::addOrganism(Organism* newOrganism, int atX, int atY) {
 	if (atX >= t_sizeI || atY >= t_sizeI) {
-		// todo: throw
+		return;
 	}
+	if (t_worldPlane[atY][atX] != nullptr) {
+		return;
+	}
+
 	newOrganism->setPosition(atX, atY);
 	addOrganism(newOrganism);
+}
+
+void World::queueOrganismBirth(Organism* newOrganism, int atX, int atY) {
+	t_queuedBirth.push_back({newOrganism, atX, atY});
 }
 
 void World::updateWorld() {
@@ -110,6 +118,11 @@ void World::updateWorld() {
 	for (auto& info: collisionsInfo) {
 		info.log();
 	}
+
+	for (auto& [organism_p, x, y]: t_queuedBirth) {
+		addOrganism(organism_p, x, y);
+	}
+	t_queuedBirth.clear();
 }
 
 void World::drawWorld() const {
@@ -135,7 +148,7 @@ void World::drawWorld() const {
 bool World::isOccupied(int x, int y) const { return t_worldPlane[y][x] != nullptr; }
 bool World::isOccupied(Vec2 pos) const { return isOccupied(pos.x, pos.y); }
 
-void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit) {
+void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit) const {
 	iterateOverNeighbours(position, [&buffor, strengthLimit, this](Vec2 checkPos) {
 		// always accept spots that are unoccupied
 		if (!isOccupied(checkPos) || // or if strengthLimit is defined spots where animal has less strength
@@ -145,10 +158,13 @@ void World::getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int s
 		}
 	});
 }
-void World::getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) {
+
+void World::getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) const {
 	iterateOverNeighbours(position, [&buffor, this](Vec2 checkPos) {
 		if (this->getFromWorld(checkPos) != nullptr) {
 			buffor.insert(checkPos);
 		}
 	});
 }
+
+void World::addToBirthQueue(const OrganismInfo info) { t_queuedBirth.push_back(info); }

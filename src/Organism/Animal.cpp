@@ -10,7 +10,7 @@
 #include "../World.h"
 
 
-int Animal::envSizeBound(int newValue, int envSize) { return newValue % envSize; }
+int Animal::envSizeBound(int newValue, int envSize) { return (envSize + newValue) % envSize; }
 
 Vec2 Animal::generateRandomPosition(Vec2 currectPos, const World* enviroment_p, int range, bool canStay) {
 

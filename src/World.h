@@ -8,21 +8,27 @@
 #include "Organism/Organism.h"
 
 #include <functional>
+#include <list>
 #include <set>
 #include <vector>
 
 // #define DEBUG
 
 class World {
+public:
+	struct OrganismInfo; // Forward definition
+
+private:
 	int t_sizeI;
 
 	std::vector<std::unique_ptr<Organism>> t_organisms;
+	std::list<OrganismInfo> t_queuedBirth;
 
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
 
-	void iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback);
+	void iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback) const;
 
 	[[nodiscard]] bool isInWorldBound(int value) const { return value >= 0 && value < t_sizeI; }
 	[[nodiscard]] bool isValidPosition(Vec2 pos) const {
@@ -30,6 +36,12 @@ class World {
 	}
 
 public:
+	struct OrganismInfo {
+		Organism* organism;
+		int x;
+		int y;
+	};
+
 	explicit World(int size) : t_sizeI(size) {
 		t_worldPlane.resize(size);
 		for (auto& innerVec: t_worldPlane) {
@@ -39,6 +51,8 @@ public:
 
 	void addOrganism(Organism* newOrganism);
 	void addOrganism(Organism* newOrganism, int atX, int atY);
+
+	void queueOrganismBirth(Organism* newOrganism, int atX, int atY);
 
 	void moveInWorld(Vec2 initialPos, Vec2 destinationPos);
 	void removeFrom(Vec2 position);
@@ -54,9 +68,10 @@ public:
 
 	[[nodiscard]] Organism* getFromWorld(Vec2 position) const { return t_worldPlane[position.y][position.x]; }
 
-	void getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit = 0);
+	void getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit = 0) const;
+	void getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) const;
 
-	void getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position);
+	void addToBirthQueue(OrganismInfo info);
 
 	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };

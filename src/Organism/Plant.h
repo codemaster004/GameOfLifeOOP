@@ -9,12 +9,12 @@
 
 
 class Plant : public Organism {
-	int t_sowChancePrecent = 20;
+	int t_sowChancePrecent = 80;
 
 public:
 	Plant() { this->t_symbolC = 'p'; }
 
-	Vec2 sow();
+	void sow();
 
 	Vec2 step() override;
 
