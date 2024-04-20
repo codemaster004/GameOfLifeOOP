@@ -31,4 +31,31 @@ Vec2 Animal::generateRandomPosition(Vec2 currectPos, const World* enviroment_p, 
 
 Vec2 Animal::step() { return generateRandomPosition(t_positionVec2, t_enviromentWorld_p, t_movementSpeedI); }
 
-void Animal::collision(Organism* attacker, CollisionContext& context) { context.resolveByFighting(this, attacker); }
+void Animal::collision(Organism* attacker, CollisionContext& context) {
+	if (attacker->isType(getType())) {
+		breed(attacker);
+	} else {
+		context.resolveByFighting(this, attacker);
+	}
+}
+
+void Animal::breed(Organism* other) {
+
+	// Make sure the organism is an animal and bot are able to breed
+	if (!(canBreed() && other->canBreed())) {
+		return;
+	}
+
+	std::set<Vec2> emptyNeighbouringSpots;
+	t_enviromentWorld_p->getAvailableSpotsAround(emptyNeighbouringSpots, t_positionVec2);
+	t_enviromentWorld_p->getAvailableSpotsAround(emptyNeighbouringSpots, other->getPossition());
+
+	if (!emptyNeighbouringSpots.empty()) {
+		auto [x, y] = *emptyNeighbouringSpots.begin();
+
+		t_enviromentWorld_p->queueOrganismBirth(this->getNewInstance(), x, y);
+	}
+
+	setBreedColldown();
+	other->setBreedColldown();
+}

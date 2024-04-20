@@ -20,6 +20,8 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override;
 
 	Organism* getNewInstance() override { return new Turtle(); }
+
+	ORGANISM_IS_TYPE(Turtle);
 };
 
 

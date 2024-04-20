@@ -26,7 +26,8 @@ public:
 
 	void collision(Organism* attacker, CollisionContext& context) override;
 
-	ORGANISM_IS_TYPE(Animal);
+	void breed(Organism* other);
+
 	ORGANISM_IS_GROUP(Animal);
 };
 

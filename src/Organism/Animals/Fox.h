@@ -18,6 +18,8 @@ public:
 	Vec2 step() override;
 
 	Organism* getNewInstance() override { return new Fox(); }
+
+	ORGANISM_IS_TYPE(Fox);
 };
 
 

@@ -18,16 +18,16 @@ int main() {
 	// world.addOrganism(new Human(), 0, 0);
 
 #define TEST_ANIMAL new Wolf()
-	// world.addOrganism(TEST_ANIMAL, 2, 1);
-	// world.addOrganism(TEST_ANIMAL, 1, 2);
-	// world.addOrganism(TEST_ANIMAL, 3, 2);
-	// world.addOrganism(TEST_ANIMAL, 2, 3);
+	world.addOrganism(TEST_ANIMAL, 2, 1);
+	world.addOrganism(TEST_ANIMAL, 1, 2);
+	world.addOrganism(TEST_ANIMAL, 3, 2);
+	world.addOrganism(TEST_ANIMAL, 2, 3);
 
 	// world.addOrganism(new Antelope(), 4, 4);
 
 	// world.addOrganism(new Fox(), 2, 2);
 
-	world.addOrganism(new SosnowskysHogweed(), 3, 3);
+	// world.addOrganism(new SosnowskysHogweed(), 3, 3);
 
 	// world.addOrganism(new Antelope(), 3, 4);
 	// world.addOrganism(new Antelope(), 4, 3);

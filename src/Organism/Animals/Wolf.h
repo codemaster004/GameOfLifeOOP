@@ -16,6 +16,8 @@ public:
 	}
 
 	Organism* getNewInstance() override { return new Wolf(); }
+
+	ORGANISM_IS_TYPE(Wolf);
 };
 
 

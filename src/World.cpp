@@ -84,35 +84,36 @@ void World::queueOrganismBirth(Organism* newOrganism, int atX, int atY) {
 void World::updateWorld() {
 	std::list<CollisionContext> collisionsInfo;
 
-	for (auto organism_p = t_organisms.begin(); organism_p != t_organisms.end();) {
-		if (!(*organism_p)->isAlive()) {
+	for (auto organism_it = t_organisms.begin(); organism_it != t_organisms.end();) {
+		if (!(*organism_it)->isAlive()) {
 			// at this stage raw pointer in worldPlane sould already be removed
 			// todo: check & throw
 
 			// Remove the Organism from the vector, and keep the loop in place
-			organism_p = t_organisms.erase(organism_p);
+			t_organisms.erase(organism_it);
 		} else {
-			Vec2 moveTo = (*organism_p)->step(); // generate new possition for organisms
+			(*organism_it)->updateBreedColldown();
+			Vec2 moveTo = (*organism_it)->step(); // generate new possition for organisms
 
 			if (moveTo.x < 0 || moveTo.y < 0) {
-				++organism_p; // skip this Organism
+				++organism_it; // skip this Organism
 				continue;
 			}
 
 			if (isOccupied(moveTo)) {
 				// create a information about collision happening and resolve it
-				CollisionContext context((*organism_p)->getStrength(), (*organism_p)->getPossition(), moveTo, this);
-				getFromWorld(moveTo)->collision(organism_p->get(), context);
+				CollisionContext context((*organism_it)->getStrength(), (*organism_it)->getPossition(), moveTo, this);
+				getFromWorld(moveTo)->collision(organism_it->get(), context);
 				collisionsInfo.push_back(context);
 			} else {
-				moveInWorld((*organism_p)->getPossition(), moveTo);
-				(*organism_p)->setPosition(moveTo);
+				moveInWorld((*organism_it)->getPossition(), moveTo);
+				(*organism_it)->setPosition(moveTo);
 			}
 #ifdef DEBUG
 			drawWorld();
 #endif // DEBUG
 
-			++organism_p; // move to the next Organism
+			++organism_it; // move to the next Organism
 		}
 	}
 	for (auto& info: collisionsInfo) {

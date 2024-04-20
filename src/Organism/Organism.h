@@ -24,6 +24,7 @@ protected:
 
 	int t_ageI;
 	bool t_aliveBCond;
+	int t_breedCooldown;
 
 	char t_symbolC;
 
@@ -58,8 +59,8 @@ public:
 	};
 
 	Organism() :
-		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_symbolC('O'), t_positionVec2(),
-		t_enviromentWorld_p(nullptr) {}
+		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_breedCooldown(1), t_symbolC('O'),
+		t_positionVec2(), t_enviromentWorld_p(nullptr) {}
 
 	virtual Vec2 step() = 0;
 	virtual void draw() { std::cout << t_symbolC; }
@@ -96,7 +97,14 @@ public:
 
 	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 
+	[[nodiscard]] bool canBreed() const { return t_breedCooldown <= 0; }
+	void setBreedColldown() { t_breedCooldown = 2; }
+	void updateBreedColldown() { t_breedCooldown > 0 && t_breedCooldown--; }
+
+	/* Type & Group */
+
 	[[nodiscard]] virtual bool isType(OrganismType other) const = 0;
+	[[nodiscard]] virtual OrganismType getType() const = 0;
 	[[nodiscard]] virtual bool isGroup(OrganismGroup other) const = 0;
 
 	/* Collision */
@@ -109,7 +117,8 @@ public:
 };
 
 #define ORGANISM_IS_TYPE(type)                                                                                         \
-	[[nodiscard]] bool isType(Organism::OrganismType other) const override { return other == OrganismType::type; }
+	[[nodiscard]] bool isType(Organism::OrganismType other) const override { return other == OrganismType::type; };    \
+	[[nodiscard]] OrganismType getType() const override { return OrganismType::type; }
 #define ORGANISM_IS_GROUP(group)                                                                                       \
 	[[nodiscard]] bool isGroup(Organism::OrganismGroup other) const override {                                         \
 		return (other & OrganismGroup::group) == OrganismGroup::group;                                                 \
