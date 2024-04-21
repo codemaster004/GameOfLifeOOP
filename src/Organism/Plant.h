@@ -7,9 +7,11 @@
 #include "CollisionContext.h"
 #include "Organism.h"
 
+#include <fstream>
+
 
 class Plant : public Organism {
-	int t_sowChancePrecent = 80;
+	int t_sowChancePrecenI = 80;
 
 public:
 	Plant() { this->t_symbolC = 'p'; }
@@ -21,6 +23,9 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override {
 		context.resolveByFighting(this, attacker);
 	}
+
+	void serialize(std::ofstream& outFile) const override;
+	void deserialize(std::ifstream& inFile) override;
 
 	ORGANISM_IS_TYPE(Plant);
 	ORGANISM_IS_GROUP(Plant);

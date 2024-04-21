@@ -12,6 +12,11 @@ public:
 	Grass() { t_symbolC = 'g'; }
 
 	Organism* getNewInstance() override { return new Grass(); }
+
+	void Grass::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::Grass) << std::endl;
+		Plant::serialize(outFile);
+	}
 };
 
 

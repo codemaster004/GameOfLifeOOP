@@ -7,6 +7,8 @@
 #include "CollisionContext.h"
 #include "Organism.h"
 
+#include <fstream>
+
 
 class Animal : public Organism {
 protected:
@@ -27,6 +29,10 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override;
 
 	void breed(Organism* other);
+
+	void serialize(std::ofstream& outFile) const override;
+
+	void deserialize(std::ifstream& inFile) override;
 
 	ORGANISM_IS_GROUP(Animal);
 };

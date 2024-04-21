@@ -8,9 +8,15 @@
 
 
 class SowThistle : public Plant {
+public:
 	SowThistle() { this->t_symbolC = 's'; }
 
 	Organism* getNewInstance() override { return new SowThistle(); }
+
+	void SowThistle::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::SowThistle) << std::endl;
+		Plant::serialize(outFile);
+	}
 };
 
 

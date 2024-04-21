@@ -18,6 +18,11 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override;
 
 	Organism* getNewInstance() override { return new SosnowskysHogweed(); }
+
+	void SosnowskysHogweed::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::SosnowskysHogweed) << std::endl;
+		Plant::serialize(outFile);
+	}
 };
 
 

@@ -10,6 +10,7 @@
 
 
 class Belladonna : public Plant {
+public:
 	Belladonna() {
 		this->t_strengthI = 99;
 		this->t_symbolC = 'b';
@@ -24,6 +25,11 @@ class Belladonna : public Plant {
 	}
 
 	Organism* getNewInstance() override { return new Belladonna(); }
+
+	void Belladonna::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::Belladonna) << std::endl;
+		Plant::serialize(outFile);
+	}
 };
 
 

@@ -4,10 +4,11 @@
 
 #ifndef GAMEOFLIFEOOP_HUMAN_H
 #define GAMEOFLIFEOOP_HUMAN_H
+#include "Animal.h"
 #include "Organism.h"
 
 
-class Human : public Organism {
+class Human : public Animal {
 public:
 	Human() {
 		t_initiativeI = 4;
@@ -19,6 +20,9 @@ public:
 	void collision(Organism* attacker, CollisionContext& context) override {}
 
 	Organism* getNewInstance() override { return nullptr; }
+
+	void serialize(std::ofstream& outFile) const override;
+	void deserialize(std::ifstream& inFile) override;
 
 	ORGANISM_IS_TYPE(Human);
 	ORGANISM_IS_GROUP(Human);

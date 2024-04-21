@@ -5,11 +5,10 @@
 #ifndef GAMEOFLIFEOOP_ORGANISM_H
 #define GAMEOFLIFEOOP_ORGANISM_H
 
+#include "../Utility/Core.h"
 #include "../Utility/Vec2.h"
 
 #include <iostream>
-
-#include "../Utility/Core.h"
 
 
 // Forward definitions for pointers
@@ -24,7 +23,7 @@ protected:
 
 	int t_ageI;
 	bool t_aliveBCond;
-	int t_breedCooldown;
+	int t_breedCooldownI;
 
 	char t_symbolC;
 
@@ -45,10 +44,10 @@ public:
 		Turtle,
 		Wolf,
 
-		Belladona,
+		Belladonna,
 		Grass,
 		Guarana,
-		SosnowskysHodweed,
+		SosnowskysHogweed,
 		SowThistle,
 	};
 
@@ -59,7 +58,7 @@ public:
 	};
 
 	Organism() :
-		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_breedCooldown(1), t_symbolC('O'),
+		t_strengthI(0), t_initiativeI(0), t_ageI(0), t_aliveBCond(true), t_breedCooldownI(1), t_symbolC('O'),
 		t_positionVec2(), t_enviromentWorld_p(nullptr) {}
 
 	virtual Vec2 step() = 0;
@@ -97,9 +96,14 @@ public:
 
 	void setEnviroment(World* enviroment) { this->t_enviromentWorld_p = enviroment; }
 
-	[[nodiscard]] bool canBreed() const { return t_breedCooldown <= 0; }
-	void setBreedColldown() { t_breedCooldown = 2; }
-	void updateBreedColldown() { t_breedCooldown > 0 && t_breedCooldown--; }
+	[[nodiscard]] bool canBreed() const { return t_breedCooldownI <= 0; }
+	void setBreedColldown() { t_breedCooldownI = 2; }
+	void updateBreedColldown() { t_breedCooldownI > 0 && t_breedCooldownI--; }
+
+	virtual void serialize(std::ofstream& outFile) const = 0;
+	virtual void deserialize(std::ifstream& inFile) = 0;
+
+	static Organism* createOrganism(OrganismType type);
 
 	/* Type & Group */
 

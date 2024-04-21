@@ -9,6 +9,8 @@
 #include "Animal.h"
 #include "../World.h"
 
+#include <fstream>
+
 
 int Animal::envSizeBound(int newValue, int envSize) { return (envSize + newValue) % envSize; }
 
@@ -58,4 +60,31 @@ void Animal::breed(Organism* other) {
 
 	setBreedColldown();
 	other->setBreedColldown();
+}
+
+void Animal::serialize(std::ofstream& outFile) const {
+	outFile << t_movementSpeedI << ' ' << t_strengthI << ' ' << t_initiativeI << ' ' << t_ageI << ' ' << t_aliveBCond
+			<< ' ' << t_breedCooldownI << ' ' << t_symbolC << ' ' << t_positionVec2.x << ' ' << t_positionVec2.y
+			<< std::endl;
+}
+
+void Animal::deserialize(std::ifstream& inFile) {
+	inFile >> t_movementSpeedI;
+	inFile.ignore();
+	inFile >> t_strengthI;
+	inFile.ignore();
+	inFile >> t_initiativeI;
+	inFile.ignore();
+	inFile >> t_ageI;
+	inFile.ignore();
+	inFile >> t_aliveBCond;
+	inFile.ignore();
+	inFile >> t_breedCooldownI;
+	inFile.ignore();
+	inFile >> t_symbolC;
+	inFile.ignore();
+	inFile >> t_positionVec2.x;
+	inFile.ignore();
+	inFile >> t_positionVec2.y;
+	inFile.ignore();
 }

@@ -8,6 +8,7 @@
 
 
 class Guarana : public Plant {
+public:
 	Guarana() { this->t_symbolC = 'u'; }
 
 	void collision(Organism* attacker, CollisionContext& context) override {
@@ -18,6 +19,11 @@ class Guarana : public Plant {
 	}
 
 	Organism* getNewInstance() override { return new Guarana(); }
+
+	void Guarana::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::Guarana) << std::endl;
+		Plant::serialize(outFile);
+	}
 };
 
 #endif // GUARANA_H

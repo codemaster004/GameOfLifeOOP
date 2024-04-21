@@ -17,6 +17,11 @@ public:
 
 	Organism* getNewInstance() override { return new Sheep(); }
 
+	void Sheep::serialize(std::ofstream& outFile) const override {
+		outFile << static_cast<int>(OrganismType::Sheep) << std::endl;
+		Animal::serialize(outFile);
+	}
+
 	ORGANISM_IS_TYPE(Sheep);
 };
 

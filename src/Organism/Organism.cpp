@@ -13,6 +13,18 @@
 
 #include <random>
 
+#include "Animals/Antelope.h"
+#include "Animals/Fox.h"
+#include "Animals/Sheep.h"
+#include "Animals/Turtle.h"
+#include "Animals/Wolf.h"
+#include "Human.h"
+#include "Plants/Belladonna.h"
+#include "Plants/Grass.h"
+#include "Plants/Guarana.h"
+#include "Plants/SosnowskysHogweed.h"
+#include "Plants/SowThistle.h"
+
 
 bool Organism::isWeakerThan(const Organism* other) const {
 	return this->t_strengthI < other->t_strengthI ||
@@ -35,4 +47,35 @@ int Organism::getRandom(int from, int to) {
 	std::uniform_int_distribution dist(from, to);
 
 	return dist(engine); // return random number from range
+}
+
+Organism* Organism::createOrganism(OrganismType type) {
+	switch (type) {
+		case OrganismType::Human:
+			return new class Human();
+		case OrganismType::Antelope:
+			return new Antelope();
+		case OrganismType::Fox:
+			return new Fox();
+		case OrganismType::Sheep:
+			return new Sheep();
+		case OrganismType::Turtle:
+			return new Turtle();
+		case OrganismType::Wolf:
+			return new Wolf();
+		case OrganismType::Belladonna:
+			return new Belladonna();
+		case OrganismType::Grass:
+			return new Grass();
+		case OrganismType::Guarana:
+			return new Guarana();
+		case OrganismType::SosnowskysHogweed:
+			return new SosnowskysHogweed();
+		case OrganismType::SowThistle:
+			return new SowThistle();
+		case OrganismType::Plant:
+		case OrganismType::Animal:
+			return nullptr;
+	}
+	return nullptr;
 }
