@@ -19,7 +19,7 @@ public:
 
 	Organism* getNewInstance() override { return new SosnowskysHogweed(); }
 
-	void SosnowskysHogweed::serialize(std::ofstream& outFile) const override {
+	void serialize(std::ofstream& outFile) const override {
 		outFile << static_cast<int>(OrganismType::SosnowskysHogweed) << std::endl;
 		Plant::serialize(outFile);
 	}

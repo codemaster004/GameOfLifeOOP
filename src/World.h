@@ -73,6 +73,9 @@ public:
 
 	void addToBirthQueue(OrganismInfo info);
 
+	void saveGamaState() const;
+	void loadGameState();
+
 	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };
 

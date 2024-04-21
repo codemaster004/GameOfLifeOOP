@@ -11,7 +11,7 @@
 
 
 class Plant : public Organism {
-	int t_sowChancePrecenI = 80;
+	int t_sowChancePrecenI = 5;
 
 public:
 	Plant() { this->t_symbolC = 'p'; }

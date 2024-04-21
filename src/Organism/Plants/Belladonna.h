@@ -26,7 +26,7 @@ public:
 
 	Organism* getNewInstance() override { return new Belladonna(); }
 
-	void Belladonna::serialize(std::ofstream& outFile) const override {
+	void serialize(std::ofstream& outFile) const override {
 		outFile << static_cast<int>(OrganismType::Belladonna) << std::endl;
 		Plant::serialize(outFile);
 	}

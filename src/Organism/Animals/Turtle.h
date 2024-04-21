@@ -21,7 +21,7 @@ public:
 
 	Organism* getNewInstance() override { return new Turtle(); }
 
-	void Turtle::serialize(std::ofstream& outFile) const override {
+	void serialize(std::ofstream& outFile) const override {
 		outFile << static_cast<int>(OrganismType::Turtle) << std::endl;
 		Animal::serialize(outFile);
 	}

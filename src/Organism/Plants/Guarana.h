@@ -20,7 +20,7 @@ public:
 
 	Organism* getNewInstance() override { return new Guarana(); }
 
-	void Guarana::serialize(std::ofstream& outFile) const override {
+	void serialize(std::ofstream& outFile) const override {
 		outFile << static_cast<int>(OrganismType::Guarana) << std::endl;
 		Plant::serialize(outFile);
 	}

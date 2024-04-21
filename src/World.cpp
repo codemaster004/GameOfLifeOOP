@@ -7,10 +7,10 @@
  * @date 20/03/2024
  */
 #include "World.h"
-
-#include <list>
-
 #include "Organism/CollisionContext.h"
+
+#include <fstream>
+#include <list>
 
 
 void World::moveInWorld(Vec2 initialPos, Vec2 destinationPos) {
@@ -169,3 +169,40 @@ void World::getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) const 
 }
 
 void World::addToBirthQueue(const OrganismInfo info) { t_queuedBirth.push_back(info); }
+
+void World::saveGamaState() const {
+	std::ofstream outFile("save.txt");
+	if (outFile.is_open()) {
+		outFile << t_organisms.size() << std::endl; // write vector size to file
+		// write all organisms to file
+		for (auto& organism: t_organisms) {
+			organism->serialize(outFile);
+		}
+		outFile.close();
+	}
+}
+
+void World::loadGameState() {
+	std::ifstream inFile("save.txt");
+	if (inFile.is_open()) {
+		// Input number of organisms present in a file
+		int nOrganism;
+		inFile >> nOrganism;
+		inFile.ignore();
+
+		for (int i = 0; i < nOrganism; ++i) {
+			int type; // load organism type
+			inFile >> type;
+			inFile.ignore();
+
+			// try creating new organism of given type
+			Organism* organism = Organism::createOrganism(static_cast<Organism::OrganismType>(type));
+			if (organism) {
+				organism->deserialize(inFile);
+				addOrganism(organism);
+			}
+		}
+
+		inFile.close();
+	}
+}
