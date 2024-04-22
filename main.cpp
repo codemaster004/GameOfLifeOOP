@@ -1,4 +1,5 @@
 
+#include "src/Game.h"
 #include "src/World.h"
 
 #include "src/Organism/Animals/Antelope.h"
@@ -13,7 +14,12 @@
 
 
 int main() {
-	auto world = World(7);
+	auto game = Game();
+
+	game.init();
+	game.run();
+
+	// auto world = World(7);
 
 	// world.addOrganism(new Human(), 0, 0);
 
@@ -35,18 +41,18 @@ int main() {
 	// world.addOrganism(new Antelope(), 0, 1);
 	// world.addOrganism(new Antelope(), 1, 0);
 
-	world.loadGameState();
-
-	world.drawWorld();
-	std::cout << std::endl;
-
-	for (int i = 0; i < 10; ++i) {
-		world.updateWorld();
-		world.drawWorld();
-		std::cout << std::endl;
-	}
-
-	world.saveGamaState();
+	// world.loadGameState();
+	//
+	// world.drawWorld();
+	// std::cout << std::endl;
+	//
+	// for (int i = 0; i < 10; ++i) {
+	// 	world.updateWorld();
+	// 	world.drawWorld();
+	// 	std::cout << std::endl;
+	// }
+	//
+	// world.saveGamaState();
 
 	return 0;
 }

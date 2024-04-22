@@ -6,6 +6,7 @@
 #define GAMEOFLIFEOOP_WORLD_H
 
 #include "Organism/Organism.h"
+#include "Utility/Menu.h"
 
 #include <functional>
 #include <list>
@@ -26,6 +27,8 @@ private:
 
 	std::vector<std::vector<Organism*>> t_worldPlane;
 
+	InputCommands* t_commands_p;
+
 	static bool compareGraterInitiative(const std::unique_ptr<Organism>& iterE, const std::unique_ptr<Organism>& newE);
 
 	void iterateOverNeighbours(Vec2 pos, const std::function<void(Vec2)>& callback) const;
@@ -43,6 +46,8 @@ public:
 	};
 
 	explicit World(int size) : t_sizeI(size) {
+		t_commands_p = nullptr;
+
 		t_worldPlane.resize(size);
 		for (auto& innerVec: t_worldPlane) {
 			innerVec.resize(size);
@@ -61,6 +66,9 @@ public:
 
 	void drawWorld() const;
 
+	void saveGamaState() const;
+	void loadGameState();
+
 	[[nodiscard]] bool isOccupied(int x, int y) const;
 	[[nodiscard]] bool isOccupied(Vec2 pos) const;
 
@@ -71,10 +79,10 @@ public:
 	void getAvailableSpotsAround(std::set<Vec2>& buffor, Vec2 position, int strengthLimit = 0) const;
 	void getOccupiedSpotsAround(std::set<Vec2>& buffor, Vec2 position) const;
 
-	void addToBirthQueue(OrganismInfo info);
+	void setCommands(InputCommands& commands) { t_commands_p = &commands; }
+	[[nodiscard]] const InputCommands* getCommands() const { return t_commands_p; }
 
-	void saveGamaState() const;
-	void loadGameState();
+	void addToBirthQueue(OrganismInfo info);
 
 	[[nodiscard]] int getSize() const { return this->t_sizeI; }
 };

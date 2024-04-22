@@ -40,6 +40,10 @@ add_executable(GameOfLifeOOP main.cpp
         src/Organism/Animals/Antelope.cpp
         src/Organism/Plants/SosnowskysHogweed.cpp
         src/Organism/Plant.cpp
+        src/Game.cpp
+        src/Game.h
+        src/Utility/MEnu.cpp
+        src/Utility/MEnu.h
 )
 
 target_link_libraries(GameOfLifeOOP PRIVATE DataStructs)
